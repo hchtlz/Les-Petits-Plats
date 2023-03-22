@@ -1,0 +1,20 @@
+.scroll-anchor {
+  align-items: center;
+  aspect-ratio: 1/1;
+  border-radius: $black;
+  border: 0.2rem solid $black;
+  bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  height: 5rem;
+  justify-content: center;
+  position: fixed;
+  right: 1rem;
+  text-decoration: none;
+  z-index: 3;
+
+  &__icon {
+    color: $black;
+  }
+}

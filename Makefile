@@ -3,3 +3,6 @@ build:
 
 lint:
 	eslint --ext .js,.ts . --fix
+
+style:
+	sass --watch sass:css

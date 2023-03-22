@@ -1,0 +1,41 @@
+.main-index {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  justify-content: center;
+  margin-bottom: 5rem;
+
+  &__content-container {
+    width: 90%;
+  }
+
+  &__input-container {
+  position: relative;
+  width: 100%;
+}
+
+&__glass-icon-svg {
+  aspect-ratio: 1/1;
+  height: 3.2rem;
+}
+
+  &__input {
+  background-color: $placebo;
+  border-radius: 0.5rem;
+  border: none;
+  color: $black;
+  height: 7rem;
+  width: 100%;
+
+    &::placeholder {
+      padding-left: 1rem;
+    }
+  }
+  
+  &__label {
+  position: absolute;
+  right: 1rem;
+  top: 2rem;
+  }
+}
