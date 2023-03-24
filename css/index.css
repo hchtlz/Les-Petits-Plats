@@ -120,6 +120,10 @@ main {
   justify-content: flex-start;
   align-items: center;
 }
+.dropdown-menu.is-active {
+  border-radius: 0.5rem 0.5rem 0 0;
+  width: 66.7rem !important;
+}
 .dropdown-menu--ingredients {
   background-color: #3282f7;
 }
@@ -129,18 +133,75 @@ main {
 .dropdown-menu--utensils {
   background-color: #ed6454;
 }
+.dropdown-menu__sort-label {
+  display: block;
+  right: 2rem;
+  position: relative;
+}
 .dropdown-menu__sort-input {
   background-color: rgba(0, 0, 0, 0);
   text-align: left;
   color: #fff;
-  font-size: 16px;
-  padding: 0 0 0 25px;
+  font-size: 1.6rem;
+  padding: 0 0 0 2.5rem;
   width: 90%;
   height: 90%;
   border: none;
 }
 .dropdown-menu__sort-input:focus {
   outline: none;
+}
+.dropdown-menu__options {
+  border-radius: 0 0 0.5rem 0.5rem;
+  color: #fff;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(auto-fill, 1fr);
+  height: auto !important;
+  left: 0;
+  list-style: none;
+  margin-top: -0.5rem;
+  max-height: 45rem;
+  min-width: 66.7rem;
+  overflow-y: scroll;
+  padding-left: 0;
+  position: absolute;
+  top: 7.5rem;
+  transition: height 450ms ease-out;
+  z-index: 1;
+}
+.dropdown-menu__options::-webkit-scrollbar {
+  display: none;
+}
+.dropdown-menu__options--ingredients {
+  background-color: #3282f7;
+}
+.dropdown-menu__options--devices {
+  background-color: #68d9a4;
+}
+.dropdown-menu__options--utensils {
+  background-color: #ed6454;
+}
+.dropdown-menu__option {
+  align-items: center;
+  border-radius: 0.5rem;
+  display: flex;
+  font-size: 14px;
+  justify-content: flex-start;
+  margin: 5px;
+  padding: 10px 20px;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+.dropdown-menu__option.ingredients:hover {
+  background-color: #0966ed;
+}
+.dropdown-menu__option.appliances:hover {
+  background-color: #3fcf8b;
+}
+.dropdown-menu__option.utensils:hover {
+  background-color: #e83a26;
 }
 
 .header {

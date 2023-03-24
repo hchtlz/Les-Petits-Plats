@@ -7,6 +7,11 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  
+  &.is-active {
+    border-radius: 0.5rem 0.5rem 0 0;
+    width: 66.7rem!important;
+  }
 
   &--ingredients {
     background-color: $dodger-blue;
@@ -18,19 +23,81 @@
     background-color: $flattered-flamingo;
   }
 
+  &__sort-label {
+    display: block;
+    right: 2rem;
+    position: relative;
+  }
 
   &__sort-input{
     background-color: rgba(0,0,0,0);
     text-align: left;
     color: $white;
-    font-size: 16px;
-    padding: 0 0 0 25px;
+    font-size: 1.6rem;
+    padding: 0 0 0 2.5rem;
     width: 90%;
     height: 90%;
     border: none;
 
     &:focus {
       outline: none;
+    }
+  }
+
+  &__options {
+    border-radius: 0 0 0.5rem 0.5rem;
+    color: $white;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(auto-fill, 1fr);
+    height: auto !important;
+    left: 0;
+    list-style: none;
+    margin-top: -0.5rem;
+    max-height: 45rem;
+    min-width: 66.7rem;
+    overflow-y: scroll;
+    padding-left: 0;
+    position: absolute;
+    top: 7.5rem;
+    transition: height 450ms ease-out;
+    z-index: 1;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    
+    &--ingredients {
+      background-color: $dodger-blue;
+    }
+    &--devices {
+      background-color: $medium-aquamarine;
+    }
+    &--utensils {
+      background-color: $flattered-flamingo;
+    }
+  }
+
+  &__option {
+    align-items: center;
+    border-radius: 0.5rem;
+    display: flex;
+    font-size: 14px;
+    justify-content: flex-start;
+    margin: 5px;
+    padding: 10px 20px;
+    text-transform: capitalize;
+    cursor: pointer;
+
+    &.ingredients:hover {
+      background-color: $dodger-blue-hover;
+    }
+    &.appliances:hover {
+      background-color: $medium-aquamarine-hover;
+    }
+    &.utensils:hover {
+      background-color: $flattered-flamingo-hover;
     }
   }
 }

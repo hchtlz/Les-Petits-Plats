@@ -31,3 +31,57 @@ recipes.forEach(recipe => {
   `
 	mainIndexResults.appendChild(card)
 })
+
+// récuperer tous les ingredients présents dans le json
+const allIngredients = recipes.map(recipe => recipe.ingredients.map(ingredient => ingredient.ingredient)).flat()
+
+// dropdown menu
+const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredients')
+const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices')
+const dropdownMenuUstensils = document.querySelector('.dropdown-menu--utensils')
+
+dropdownMenuIngredients.addEventListener('click', () => {
+  dropdownMenuIngredients.classList.toggle('is-active')
+  dropdownMenuIngredients.querySelector('.dropdown-menu__options').classList.toggle('is-active')
+})
+
+dropdownMenuAppliances.addEventListener('click', () => {
+  dropdownMenuAppliances.classList.toggle('is-active')
+  dropdownMenuAppliances.querySelector('.dropdown-menu__options').classList.toggle('is-active')
+})
+
+dropdownMenuUstensils.addEventListener('click', () => {
+  dropdownMenuUstensils.classList.toggle('is-active')
+  dropdownMenuUstensils.querySelector('.dropdown-menu__options').classList.toggle('is-active')
+})
+
+
+// liste des ingrédients
+dropdownMenuIngredients.addEventListener('click', () => {
+  const dropdownMenuOptions = dropdownMenuIngredients.querySelector('.dropdown-menu__options')
+  if (dropdownMenuOptions.classList.contains('is-active')) {
+    dropdownMenuOptions.innerHTML = allIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
+  } else {
+    dropdownMenuOptions.innerHTML = ''
+  }
+})
+
+// liste des appareils
+dropdownMenuAppliances.addEventListener('click', () => {
+  const dropdownMenuOptions = dropdownMenuAppliances.querySelector('.dropdown-menu__options')
+  if (dropdownMenuOptions.classList.contains('is-active')) {
+    dropdownMenuOptions.innerHTML = recipes.map(recipe => `<li class="dropdown-menu__option appliances">${recipe.appliance}</li>`).join('')
+  } else {
+    dropdownMenuOptions.innerHTML = ''
+  }
+})
+
+// liste des ustensiles
+dropdownMenuUstensils.addEventListener('click', () => {
+  const dropdownMenuOptions = dropdownMenuUstensils.querySelector('.dropdown-menu__options')
+  if (dropdownMenuOptions.classList.contains('is-active')) {
+    dropdownMenuOptions.innerHTML = recipes.map(recipe => recipe.ustensils.map(ustensil => `<li class="dropdown-menu__option utensils">${ustensil}</li>`)).flat().join('')
+  } else {
+    dropdownMenuOptions.innerHTML = ''
+  }
+})
