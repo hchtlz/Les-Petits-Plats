@@ -111,17 +111,18 @@ main {
 }
 
 .dropdown-menu {
-  border-radius: 0.5rem;
-  height: 7rem;
-  width: 20rem;
-  transition: width 350ms ease-out;
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
   align-items: center;
+  border-radius: 0.5rem;
+  display: flex;
+  height: 7rem;
+  justify-content: flex-start;
+  position: relative;
+  transition: width 350ms ease-out;
+  width: 20rem;
 }
 .dropdown-menu.is-active {
   border-radius: 0.5rem 0.5rem 0 0;
+  transition: width 350ms ease-out;
   width: 66.7rem !important;
 }
 .dropdown-menu--ingredients {
@@ -140,13 +141,13 @@ main {
 }
 .dropdown-menu__sort-input {
   background-color: rgba(0, 0, 0, 0);
-  text-align: left;
+  border: none;
   color: #fff;
   font-size: 1.6rem;
-  padding: 0 0 0 2.5rem;
-  width: 90%;
   height: 90%;
-  border: none;
+  padding: 0 0 0 2.5rem;
+  text-align: left;
+  width: 90%;
 }
 .dropdown-menu__sort-input:focus {
   outline: none;
@@ -186,13 +187,13 @@ main {
 .dropdown-menu__option {
   align-items: center;
   border-radius: 0.5rem;
+  cursor: pointer;
   display: flex;
   font-size: 14px;
   justify-content: flex-start;
   margin: 5px;
   padding: 10px 20px;
   text-transform: capitalize;
-  cursor: pointer;
 }
 .dropdown-menu__option.ingredients:hover {
   background-color: #0966ed;
