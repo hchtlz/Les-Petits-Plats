@@ -18,8 +18,8 @@ main {
 .scroll-anchor {
   align-items: center;
   aspect-ratio: 1/1;
-  border-radius: #000;
-  border: 0.2rem solid #000;
+  background-color: #000;
+  border-radius: 50%;
   bottom: 1rem;
   display: flex;
   flex-direction: row;
@@ -32,7 +32,7 @@ main {
   z-index: 3;
 }
 .scroll-anchor__icon {
-  color: #000;
+  color: #fff;
 }
 
 .card {
@@ -110,6 +110,39 @@ main {
   width: 100%;
 }
 
+.dropdown-menu {
+  border-radius: 0.5rem;
+  height: 7rem;
+  width: 20rem;
+  transition: width 350ms ease-out;
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.dropdown-menu--ingredients {
+  background-color: #3282f7;
+}
+.dropdown-menu--devices {
+  background-color: #68d9a4;
+}
+.dropdown-menu--utensils {
+  background-color: #ed6454;
+}
+.dropdown-menu__sort-input {
+  background-color: rgba(0, 0, 0, 0);
+  text-align: left;
+  color: #fff;
+  font-size: 16px;
+  padding: 0 0 0 25px;
+  width: 90%;
+  height: 90%;
+  border: none;
+}
+.dropdown-menu__sort-input:focus {
+  outline: none;
+}
+
 .header {
   align-items: center;
   display: flex;
@@ -161,6 +194,14 @@ main {
   position: absolute;
   right: 1rem;
   top: 2rem;
+}
+.main-index__sort-inputs-container {
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
 }
 .main-index__results-container {
   display: grid;

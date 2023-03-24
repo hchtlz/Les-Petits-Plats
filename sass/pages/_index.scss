@@ -37,6 +37,15 @@
   top: 2rem;
   }
 
+  &__sort-inputs-container{
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+  }
+
   &__results-container {
     display: grid;
     grid-gap: 5rem;

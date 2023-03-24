@@ -1,8 +1,8 @@
 .scroll-anchor {
   align-items: center;
   aspect-ratio: 1/1;
-  border-radius: $black;
-  border: 0.2rem solid $black;
+  background-color: $black;
+  border-radius: 50%;
   bottom: 1rem;
   display: flex;
   flex-direction: row;
@@ -15,6 +15,6 @@
   z-index: 3;
 
   &__icon {
-    color: $black;
+    color: $white;
   }
 }
