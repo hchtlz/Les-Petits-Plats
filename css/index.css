@@ -1,16 +1,13 @@
 html {
-  line-height: 1.15;
-  /* 1 */
   -webkit-text-size-adjust: 100%;
-  /* 2 */
   box-sizing: border-box;
-  /* natural box layout model to all elements */
+  line-height: 1.15;
   font-size: 62.5%;
 }
 
 body {
-  margin: 0;
   font-family: "Roboto", sans-serif;
+  margin: 0;
   font-size: 1.6rem;
 }
 
@@ -36,6 +33,81 @@ main {
 }
 .scroll-anchor__icon {
   color: #000;
+}
+
+.card {
+  background-color: #E7E7E7;
+  height: 38rem;
+  max-width: 70rem;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+.card__image {
+  aspect-ratio: 1/1;
+  background-color: #c7bebe;
+  border-radius: 0.5rem 0.5rem 0 0;
+  height: 17.8rem;
+  width: 100%;
+}
+.card__text-container {
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 48%;
+  overflow: hidden;
+}
+.card__header {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.card__header-title {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 1.8rem;
+}
+.card__header-time {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  font-size: 1.8rem;
+  font-weight: 700;
+  gap: 0.7rem;
+  justify-content: center;
+  text-align: right;
+}
+.card__recipe-details {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 0;
+}
+.card__recipe-details--ingredients-list {
+  list-style: none;
+  max-height: 10rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-left: 0;
+  width: 100%;
+}
+.card__recipe-details--ingredient {
+  font-size: 1.2rem;
+  padding: 1px;
+  width: 100%;
+}
+.card__recipe-details--ingredient-name {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+.card__recipe-details--description {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8;
+  display: -webkit-box;
+  font-size: 1.2rem;
+  overflow: hidden;
+  width: 100%;
 }
 
 .header {
@@ -79,17 +151,32 @@ main {
   background-color: #E7E7E7;
   border-radius: 0.5rem;
   border: none;
+  box-sizing: border-box;
   color: #000;
   height: 7rem;
+  padding: 0 2.5rem;
   width: 100%;
-}
-.main-index__input::placeholder {
-  padding-left: 1rem;
 }
 .main-index__label {
   position: absolute;
   right: 1rem;
   top: 2rem;
+}
+.main-index__results-container {
+  display: grid;
+  grid-gap: 5rem;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 10rem;
+}
+@media screen and (max-width: 1024px) {
+  .main-index__results-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 600px) {
+  .main-index__results-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 /*# sourceMappingURL=index.css.map */

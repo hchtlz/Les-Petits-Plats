@@ -1,0 +1,84 @@
+.card {
+  background-color: $placebo;
+  height: 38rem;
+  max-width: 70rem;
+  width: 100%;
+  border-radius: 0.5rem;
+
+  &__image {
+    aspect-ratio: 1/1;
+    background-color: $oil-of-lavender;
+    border-radius: 0.5rem 0.5rem 0 0;
+    height: 17.8rem;
+    width: 100%;
+  }
+
+  &__text-container {
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    height: 48%;
+    overflow: hidden;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &-title {
+      font-family: $font-family;
+      font-weight: 400;
+      font-size: 1.8rem;
+    }
+
+    &-time {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      font-size: 1.8rem;
+      font-weight: 700;
+      gap: 0.7rem;
+      justify-content: center;
+      text-align: right;
+    }
+  }
+
+  &__recipe-details {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-top: 0;
+
+    &--ingredients-list {
+      list-style: none;
+      max-height: 10rem;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding-left: 0;
+      width: 100%;
+    }
+
+    &--ingredient {
+      font-size: 1.2rem;
+      padding: 1px;
+      width: 100%;
+
+      &-name {
+        font-weight: bold;
+        margin-right: 0.5rem;
+      }
+    }
+
+    &--description{
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 8;
+      display: -webkit-box;
+      font-size: 1.2rem;
+      overflow: hidden;
+      width: 100%;
+    }
+  }
+}

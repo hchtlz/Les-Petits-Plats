@@ -1,3 +1,6 @@
+dev: 
+	sass --watch sass:css & webpack --config webpack.config.js
+	
 build:
 	webpack --config webpack.config.js
 

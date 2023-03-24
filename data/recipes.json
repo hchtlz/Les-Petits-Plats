@@ -24,7 +24,8 @@
         "unit": "grammes"
       },
       {
-        "ingredient": "Glaçons"
+        "ingredient": "Glaçons",
+        "quantity": 2
       }
     ],
     "time": 10,
@@ -512,7 +513,7 @@
   },
   {
     "id": 14,
-    "name": "Galette Bretonne Saucisse et Fromage à raclette",
+    "name": "Galette Bretonne et Fromage à raclette",
     "servings": 2,
     "ingredients": [
       {

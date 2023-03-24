@@ -24,18 +24,31 @@
   background-color: $placebo;
   border-radius: 0.5rem;
   border: none;
+  box-sizing: border-box;
   color: $black;
   height: 7rem;
+  padding: 0 2.5rem;
   width: 100%;
-
-    &::placeholder {
-      padding-left: 1rem;
-    }
   }
   
   &__label {
   position: absolute;
   right: 1rem;
   top: 2rem;
+  }
+
+  &__results-container {
+    display: grid;
+    grid-gap: 5rem;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 10rem;
+
+    @media screen and (max-width: $mq-desktop) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: $mq-small-tablet) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 }

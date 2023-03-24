@@ -9,6 +9,7 @@
         content="Bienvenue sur la page d'accueil de Les Petits Plats, le site officiel pour rechercher des recettes culinaires!">
   <link rel="icon" type="image/png" href="assets/logos/icon-logo.png" />
   <link rel="stylesheet" href="./css/index.css">
+  <link type='text/css' href='http://fonts.googleapis.com/css?family=Lato:400,700' />
   <script src="https://kit.fontawesome.com/904e9ee361.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -17,7 +18,7 @@
   <a class="scroll-anchor" href="#top" title="Revenir en haut de la page?">
     <i class="fa-solid fa-arrow-up scroll-anchor__icon"></i>
   </a>
-
+  <!-- Header -->
   <header class="header" role="banner" tabindex="0">
     <a href="#" title="Retourner à la page d'acceuil?" class="header__link">
       <svg width="52" height="47" viewBox="0 0 52 47" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -28,10 +29,10 @@
       </svg>
     </a>
     <h1 class="header__title" id="top">Les petits plats</h1>
-</header>
+  </header>
 
-<main class="main-index" role="main" tabindex="0">
-  <div class="main-index__content-container">
+  <main class="main-index" role="main" tabindex="0">
+    <div class="main-index__content-container">
       <section class="main-index__input-container" role="region" aria-label="Section de recherche de recette">
           <form action="#" class="main-index__form">
               <input type="text" class="main-index__input" id="search" placeholder="Rechercher une recette"
@@ -46,7 +47,7 @@
               </label>
           </form>
       </section>
-      <div class="cards"></div>
+      <section class="main-index__results-container"></section>
     </div>
   </main>
   <script src="dist/index.bundle.js"></script>
