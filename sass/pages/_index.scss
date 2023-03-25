@@ -44,6 +44,11 @@
     justify-content: flex-start;
     align-items: center;
     gap: 2rem;
+
+    @media screen and (max-width: $mq-small-tablet) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   &__results-container {

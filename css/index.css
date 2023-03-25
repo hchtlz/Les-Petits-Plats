@@ -120,10 +120,20 @@ main {
   transition: width 350ms ease-out;
   width: 20rem;
 }
+@media screen and (max-width: 600px) {
+  .dropdown-menu {
+    width: 100%;
+  }
+}
 .dropdown-menu.is-active {
   border-radius: 0.5rem 0.5rem 0 0;
   transition: width 350ms ease-out;
   width: 66.7rem !important;
+}
+@media screen and (max-width: 600px) {
+  .dropdown-menu.is-active {
+    width: 100% !important;
+  }
 }
 .dropdown-menu--ingredients {
   background-color: #3282f7;
@@ -164,7 +174,7 @@ main {
   list-style: none;
   margin-top: -0.5rem;
   max-height: 45rem;
-  min-width: 66.7rem;
+  max-width: 66.7rem;
   overflow-y: scroll;
   padding-left: 0;
   position: absolute;
@@ -264,6 +274,12 @@ main {
   justify-content: flex-start;
   align-items: center;
   gap: 2rem;
+}
+@media screen and (max-width: 600px) {
+  .main-index__sort-inputs-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 .main-index__results-container {
   display: grid;

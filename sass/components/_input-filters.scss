@@ -8,10 +8,14 @@
   transition: width 350ms ease-out;
   width: 20rem;
   
+  @media screen and (max-width: $mq-small-tablet) { width: 100% }; 
+  
   &.is-active {
     border-radius: 0.5rem 0.5rem 0 0;
     transition: width 350ms ease-out;
     width: 66.7rem!important;
+    
+    @media screen and (max-width: $mq-small-tablet) { width: 100%!important }; 
   }
 
   &--ingredients {
@@ -57,7 +61,7 @@
     list-style: none;
     margin-top: -0.5rem;
     max-height: 45rem;
-    min-width: 66.7rem;
+    max-width: 66.7rem;
     overflow-y: scroll;
     padding-left: 0;
     position: absolute;
