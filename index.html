@@ -9,7 +9,6 @@
         content="Bienvenue sur la page d'accueil de Les Petits Plats, le site officiel pour rechercher des recettes culinaires!">
   <link rel="icon" type="image/png" href="assets/logos/icon-logo.png" />
   <link rel="stylesheet" href="./css/index.css">
-  <link type='text/css' href='http://fonts.googleapis.com/css?family=Lato:400,700' />
   <script src="https://kit.fontawesome.com/904e9ee361.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -19,24 +18,19 @@
     <i class="fa-solid fa-arrow-up scroll-anchor__icon"></i>
   </a>
   <!-- Header -->
-  <header class="header" role="banner" tabindex="0">
+  <header class="header" tabindex="0">
     <a href="#" title="Retourner à la page d'acceuil?" class="header__link">
-      <svg width="52" height="47" viewBox="0 0 52 47" fill="none" xmlns="http://www.w3.org/2000/svg"
-          class="header__logo">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M39.5083 25.3424V35.1415H12.4024V25.3424C7.99768 25.3424 4.60945 21.9635 4.60945 17.5708C4.60945 13.1781 7.99768 9.79908 12.4024 9.79908C15.4518 9.79908 18.1624 11.4886 19.5177 14.1918L22.9059 12.5023C21.8895 10.8128 20.873 9.12328 19.1789 8.10958C20.5342 5.74429 22.9059 4.05479 25.9553 4.05479C30.36 4.05479 33.7483 7.43378 33.7483 11.8265C33.7483 13.1781 33.4095 14.5297 32.7318 15.8813L36.12 17.9087C37.1365 16.2192 37.8142 14.1918 37.8142 11.8265C37.8142 11.1507 37.8142 10.8128 37.8142 10.137C38.4918 9.79908 39.1695 9.79908 39.8471 9.79908C44.2518 9.79908 47.64 13.1781 47.64 17.5708C47.64 21.9635 43.913 25.3424 39.5083 25.3424ZM39.5083 42.9132H12.4024V39.1963H39.5083V42.9132ZM39.5083 6.08219C38.4918 6.08219 37.4753 6.42009 36.12 6.42009C34.0871 2.70319 30.36 0 25.9553 0C21.5506 0 17.4847 2.36529 15.7906 6.42009C14.7742 6.08219 13.7577 6.08219 12.4024 6.08219C5.96474 6.08219 0.882385 11.1507 0.882385 17.5708C0.882385 22.6393 4.27062 27.0319 8.67533 28.3835V46.2922H43.5742V28.7214C47.9789 27.0319 51.3671 22.9772 51.3671 17.9087C51.3671 11.4886 45.9459 6.08219 39.5083 6.08219ZM22.2283 31.0867H18.5012V23.653H22.2283V31.0867ZM33.7483 31.0867H30.0212V23.653H33.7483V31.0867Z"
-              fill="#D04F4F" />
-      </svg>
+      <img src="assets/SVGs/toque.svg" alt="Logo Les Petits Plats" class="header__logo">
     </a>
     <h1 class="header__title" id="top">Les petits plats</h1>
   </header>
 
-  <main class="main-index" role="main" tabindex="0">
+  <main class="main-index" tabindex="0">
     <div class="main-index__content-container">
-      <section class="main-index__input-container" role="region" aria-label="Section de recherche de recette">
+      <section class="main-index__input-container" aria-label="Section de recherche de recette">
           <form action="#" class="main-index__form">
               <input type="text" class="main-index__input" id="search" placeholder="Rechercher une recette"
-                  autocomplete="off" />
+                  autocomplete="off" >
               <label for="search" class="main-index__label">
                   <img src="assets/SVGs/search.svg" alt="Icone de loupe" class="main-index__label-icon">
               </label>
@@ -44,7 +38,7 @@
       </section>
       <div class="main-index__tags-container">
       </div>
-      <section class="main-index__sort-inputs-container">
+      <div class="main-index__sort-inputs-container">
         <div class="dropdown-menu dropdown-menu--ingredients" data-search-type="ingredients">
             <input  type="text" 
                     class="dropdown-menu__sort-input dropdown-menu__sort-input--ingredients"
@@ -86,8 +80,8 @@
           <ul class="dropdown-menu__options dropdown-menu__options--utensils">
           </ul>
         </div>
-      </section>
-      <section class="main-index__results-container"></section>
+      </div>
+      <div class="main-index__results-container"></div>
     </div>
   </main>
   <script src="dist/index.bundle.js"></script>
