@@ -38,6 +38,7 @@
     background-color: rgba(0,0,0,0);
     border: none;
     color: $white;
+    cursor: pointer;
     font-size: 1.6rem;
     height: 90%;
     padding: 0 0 0 2.5rem;
@@ -46,6 +47,9 @@
 
     &:focus {
       outline: none;
+    }
+    &::placeholder {
+      color: $squant;
     }
   }
 
@@ -61,13 +65,17 @@
     list-style: none;
     margin-top: -0.5rem;
     max-height: 45rem;
-    max-width: 66.7rem;
+    min-width: 100%;
     overflow-y: scroll;
     padding-left: 0;
     position: absolute;
     top: 7.5rem;
     transition: height 450ms ease-out;
     z-index: 1;
+
+    &.is-active {
+      padding-bottom: 1rem;
+    }
 
     &::-webkit-scrollbar {
       display: none;
@@ -89,16 +97,16 @@
     border-radius: 0.5rem;
     cursor: pointer;
     display: flex;
-    font-size: 14px;
+    font-size: 1.4rem;
     justify-content: flex-start;
-    margin: 5px;
-    padding: 10px 20px;
+    margin: 0.5rem;
+    padding: 1rem 2rem;
     text-transform: capitalize;
 
     &.ingredients:hover {
       background-color: $dodger-blue-hover;
     }
-    &.appliances:hover {
+    &.devices:hover {
       background-color: $medium-aquamarine-hover;
     }
     &.utensils:hover {

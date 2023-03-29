@@ -153,6 +153,7 @@ main {
   background-color: rgba(0, 0, 0, 0);
   border: none;
   color: #fff;
+  cursor: pointer;
   font-size: 1.6rem;
   height: 90%;
   padding: 0 0 0 2.5rem;
@@ -161,6 +162,9 @@ main {
 }
 .dropdown-menu__sort-input:focus {
   outline: none;
+}
+.dropdown-menu__sort-input::placeholder {
+  color: rgba(255, 255, 255, 0.5019607843);
 }
 .dropdown-menu__options {
   border-radius: 0 0 0.5rem 0.5rem;
@@ -174,13 +178,16 @@ main {
   list-style: none;
   margin-top: -0.5rem;
   max-height: 45rem;
-  max-width: 66.7rem;
+  min-width: 100%;
   overflow-y: scroll;
   padding-left: 0;
   position: absolute;
   top: 7.5rem;
   transition: height 450ms ease-out;
   z-index: 1;
+}
+.dropdown-menu__options.is-active {
+  padding-bottom: 1rem;
 }
 .dropdown-menu__options::-webkit-scrollbar {
   display: none;
@@ -199,16 +206,16 @@ main {
   border-radius: 0.5rem;
   cursor: pointer;
   display: flex;
-  font-size: 14px;
+  font-size: 1.4rem;
   justify-content: flex-start;
-  margin: 5px;
-  padding: 10px 20px;
+  margin: 0.5rem;
+  padding: 1rem 2rem;
   text-transform: capitalize;
 }
 .dropdown-menu__option.ingredients:hover {
   background-color: #0966ed;
 }
-.dropdown-menu__option.appliances:hover {
+.dropdown-menu__option.devices:hover {
   background-color: #3fcf8b;
 }
 .dropdown-menu__option.utensils:hover {
