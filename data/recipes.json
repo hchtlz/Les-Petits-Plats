@@ -56,10 +56,6 @@
         "quantity": 2
       },
       {
-        "ingredient": "Carotte",
-        "quantity": 1
-      },
-      {
         "ingredient": "Citron Vert",
         "quantity": 5
       },
@@ -325,7 +321,7 @@
   },
   {
     "id": 9,
-    "name": "Salade Méditerannéene fraîche au chèvre",
+    "name": "Salade Méditerannéene au chèvre",
     "servings": 4,
     "ingredients": [
       {
@@ -339,15 +335,6 @@
         "ingredient": "Fromage de chèvre",
         "quantity": 150,
         "unit": "grammes"
-      },
-      {
-        "ingredient": "Vinaigre Balsamic"
-      },
-      {
-        "ingredient": "Huile d'olive"
-      },
-      {
-        "ingredient": "Basilic"
       }
     ],
     "time": 15,
@@ -659,7 +646,8 @@
         "quantity": 8
       },
       {
-        "ingredient": "Menthe"
+        "ingredient": "Menthe",
+        "quantity": 3
       }
     ],
     "time": 15,
@@ -727,7 +715,7 @@
         "quantity": 1
       }
     ],
-    "time": 0,
+    "time": 5,
     "description": "Coupez les fruits en morceaux, ajouter le jus de citron et le lait ainsi que le sucre glace. Mixez. Ajoutez des glaçons si le lait n'a pas été mis au frais.",
     "appliance": "Blender",
     "ustensils": [

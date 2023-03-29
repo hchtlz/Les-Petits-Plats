@@ -46,6 +46,7 @@
   }
 
   &__recipe-details {
+    align-items: baseline;
     display: flex;
     flex-direction: row-reverse;
     gap: 1rem;

@@ -109,14 +109,10 @@ dropdownMenuUstensils.addEventListener('click', () => {
   }
 })
 
-// when clicking on an ingredient, it is added to the search bar
+// display tags
 dropdownMenu.forEach(menu => {
   menu.addEventListener('click', (e) => {
     if (e.target.classList.contains('dropdown-menu__option')) {
-      const input = menu.querySelector('.dropdown-menu__sort-input')
-      input.value = e.target.textContent
-
-      // to each ingredient added to the search bar, a tag is created with name and cross
       const searchResults = document.querySelector('.main-index__tags-container')
       const tag = document.createElement('div')
       tag.classList.add('tag')
@@ -124,10 +120,17 @@ dropdownMenu.forEach(menu => {
         <p class="tag__text">${e.target.textContent}</p>
         <i class="fas fa-times tag__cross"></i>
       `
-      // when clicking on the cross, the tag is removed
       tag.querySelector('.tag__cross').addEventListener('click', () => {
         tag.remove()
       })
+
+      if (e.target.classList.contains('ingredients')) {
+        tag.classList.add('ingredients')
+      } else if (e.target.classList.contains('devices')) {
+        tag.classList.add('devices')
+      } else if (e.target.classList.contains('utensils')) {
+        tag.classList.add('utensils')
+      }
       searchResults.appendChild(tag)
     }
   })
