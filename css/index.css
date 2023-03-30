@@ -149,6 +149,7 @@ main {
   display: block;
   right: 2rem;
   position: relative;
+  pointer-events: none;
 }
 .dropdown-menu__sort-input {
   background-color: rgba(0, 0, 0, 0);

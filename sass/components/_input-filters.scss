@@ -32,6 +32,7 @@
     display: block;
     right: 2rem;
     position: relative;
+    pointer-events: none;
   }
 
   &__sort-input{
