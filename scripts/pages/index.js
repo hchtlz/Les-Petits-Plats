@@ -1,4 +1,5 @@
 import { getRecipes } from '../utils/model.js'
+import { sorting } from '../utils/sorting.js'
 
 const recipes = getRecipes()
 
@@ -135,3 +136,5 @@ dropdownMenu.forEach(menu => {
     }
   })
 })
+
+sorting();
