@@ -348,5 +348,22 @@ main {
   gap: 1.5rem;
   margin-top: 2.5rem;
 }
+.main-index__error-image {
+  width: 15rem;
+}
+.main-index__error-text {
+  color: #aaaaaa;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.error {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  grid-area: 1/1/2/4;
+  margin-top: 10rem;
+}
 
 /*# sourceMappingURL=index.css.map */
