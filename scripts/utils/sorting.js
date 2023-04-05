@@ -33,37 +33,6 @@ export function sorting(){
       `
       recipesContainer.appendChild(errorDiv)
     }
-  
-    function filterIngredients() {
-      //au bout de 3 caractères, afficher les ingrédients qui correspondent
-      if (searchBarValue.length > 2) {
-        const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
-        const uniqueIngredients = [...new Set(filteredIngredients)]
-        console.log(uniqueIngredients)
-      }
-    }
-    filterIngredients()
-
-    function filterAppliances() {
-      if (searchBarValue.length > 2) {
-        const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance)
-        const uniqueAppliances = [...new Set(filteredAppliances)]
-        console.log(uniqueAppliances)
-      }
-    }
-    filterAppliances()
-
-    function filterUstensils() {
-      if (searchBarValue.length > 2) {
-        const filteredUstensils = filteredRecipes.map(recipe => recipe.ustensils).flat()
-        const uniqueUstensils = [...new Set(filteredUstensils)]
-        console.log(uniqueUstensils)
-      }
-    }
-    filterUstensils()
-
-
-
   })
 }
 
@@ -93,4 +62,58 @@ export function createCard(recipe) {
     </div>
   `
   return card
+}
+
+export function filterIngredients() {
+  const recipes = getRecipes()
+  const searchBar = document.querySelector('.main-index__input')
+  let searchBarValue = searchBar.value
+
+  searchBar.addEventListener('keyup', (e) => {
+    searchBarValue = e.target.value
+    const filteredRecipes = recipes.filter((recipe) => {
+      return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
+    })
+    if (searchBarValue.length > 2) {
+      const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
+      const uniqueIngredients = [...new Set(filteredIngredients)]
+      console.log(uniqueIngredients)
+    }
+  })
+}
+
+export function filterAppliances() {
+  const recipes = getRecipes()
+  const searchBar = document.querySelector('.main-index__input')
+  let searchBarValue = searchBar.value
+
+  searchBar.addEventListener('keyup', (e) => {
+    searchBarValue = e.target.value
+    const filteredRecipes = recipes.filter((recipe) => {
+      return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
+    })
+    if (searchBarValue.length > 2) {
+      const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance)
+      const uniqueAppliances = [...new Set(filteredAppliances)]
+      console.log(uniqueAppliances)
+    }
+  })
+}
+
+export function filterUstensils() {
+  const recipes = getRecipes()
+  const searchBar = document.querySelector('.main-index__input')
+  let searchBarValue = searchBar.value
+
+  searchBar.addEventListener('keyup', (e) => {
+    searchBarValue = e.target.value
+    const filteredRecipes = recipes.filter((recipe) => {
+      return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
+    })
+    if (searchBarValue.length > 2) {
+      const filteredUstensils = filteredRecipes.map(recipe => recipe.ustensils).flat()
+      const uniqueUstensils = [...new Set(filteredUstensils)]
+      console.log(uniqueUstensils)
+    }
+  })
 }

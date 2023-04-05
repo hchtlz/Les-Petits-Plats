@@ -1,6 +1,9 @@
 import { getRecipes } from '../utils/model.js'
 import { sorting } from '../utils/sorting.js'
 import { createCard } from '../utils/sorting.js'
+import { filterIngredients } from '../utils/sorting.js'
+import { filterAppliances } from '../utils/sorting.js'
+import { filterUstensils } from '../utils/sorting.js'
 
 const recipes = getRecipes()
 
@@ -33,7 +36,7 @@ dropdownMenuIngredients.addEventListener('click', () => {
     
     const uniqueIngredients = [...new Set(allIngredients)]
     dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
-  
+
   } else {
     dropdownMenuOptions.innerHTML = ''
 
@@ -88,6 +91,29 @@ dropdownMenuUstensils.addEventListener('click', () => {
   }
 })
 
+// function to search tag in the dropdown menu
+function searchTag (e) {
+  const input = e.target
+  const filter = input.value.toUpperCase()
+  const options = input.parentNode.querySelectorAll('.dropdown-menu__option')
+  options.forEach(option => {
+    const text = option.textContent || option.innerText
+    if (text.toUpperCase().indexOf(filter) > -1) {
+      option.style.display = ''
+    } else {
+      option.style.display = 'none'
+    }
+  })
+}
+
+dropdownMenu.forEach(menu => {
+  menu.addEventListener('keyup', (e) => {
+    if (e.target.classList.contains('dropdown-menu__sort-input')) {
+      searchTag(e)
+    }
+  })
+})
+
 // display tags
 dropdownMenu.forEach(menu => {
   menu.addEventListener('click', (e) => {
@@ -97,7 +123,7 @@ dropdownMenu.forEach(menu => {
       tag.classList.add('tag')
       tag.innerHTML = `
         <p class="tag__text">${e.target.textContent}</p>
-        <img class="tag__cross" src="assets/SVGs/cross.svg" alt="cross">
+        <img class="tag__cross" src="assets/SVGS/cross.svg" alt="cross">
       `
       tag.querySelector('.tag__cross').addEventListener('click', () => {
         tag.remove()
@@ -116,3 +142,6 @@ dropdownMenu.forEach(menu => {
 })
 
 sorting();
+filterIngredients();
+filterAppliances();
+filterUstensils();
