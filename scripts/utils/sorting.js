@@ -35,25 +35,35 @@ export function sorting(){
     }
   
     function filterIngredients() {
-      const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(ingredient => ingredient.ingredient)).flat()
-      const uniqueIngredients = [...new Set(filteredIngredients)]
-      console.log(uniqueIngredients)
+      //au bout de 3 caractères, afficher les ingrédients qui correspondent
+      if (searchBarValue.length > 2) {
+        const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
+        const uniqueIngredients = [...new Set(filteredIngredients)]
+        console.log(uniqueIngredients)
+      }
     }
     filterIngredients()
 
     function filterAppliances() {
-      const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance)
-      const uniqueAppliances = [...new Set(filteredAppliances)]
-      console.log(uniqueAppliances)
+      if (searchBarValue.length > 2) {
+        const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance)
+        const uniqueAppliances = [...new Set(filteredAppliances)]
+        console.log(uniqueAppliances)
+      }
     }
     filterAppliances()
 
     function filterUstensils() {
-      const filteredUstensils = filteredRecipes.map(recipe => recipe.ustensils).flat()
-      const uniqueUstensils = [...new Set(filteredUstensils)]
-      console.log(uniqueUstensils)
+      if (searchBarValue.length > 2) {
+        const filteredUstensils = filteredRecipes.map(recipe => recipe.ustensils).flat()
+        const uniqueUstensils = [...new Set(filteredUstensils)]
+        console.log(uniqueUstensils)
+      }
     }
     filterUstensils()
+
+
+
   })
 }
 
