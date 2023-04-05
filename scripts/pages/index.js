@@ -4,6 +4,7 @@ import { createCard } from '../utils/card.js'
 import { filterIngredients } from '../utils/sorting.js'
 import { filterAppliances } from '../utils/sorting.js'
 import { filterUstensils } from '../utils/sorting.js'
+import { displayIngredients } from '../utils/sorting.js'
 
 const recipes = getRecipes()
 
@@ -31,7 +32,7 @@ dropdownMenuIngredients.addEventListener('click', () => {
   
   if (dropdownMenuOptions.classList.contains('is-active')) {
     
-    filterIngredients(allIngredients)
+    filterIngredients()
     const input = dropdownMenuIngredients.querySelector('.dropdown-menu__sort-input')
     input.value = ''
 
@@ -158,6 +159,7 @@ dropdownMenu.forEach(menu => {
     })
   })
 })
+
 
 sorting();
 filterAppliances();

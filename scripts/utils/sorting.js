@@ -56,6 +56,8 @@ export function filterIngredients() {
     const filteredRecipes = recipes.filter((recipe) => {
       return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
     })
+
+    console.log("ingredients", filteredRecipes)
     if (searchBarValue.length > 2 && dropdownMenuIngredients.classList.contains('is-active')) {
       const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
       const uniqueIngredients = [...new Set(filteredIngredients)]
