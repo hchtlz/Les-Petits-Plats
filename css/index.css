@@ -136,6 +136,10 @@ main {
     width: 100% !important;
   }
 }
+.dropdown-menu.is-active .dropdown-menu__sort-label img {
+  transform: rotate(180deg);
+  transition: transform 0.4s ease-in-out;
+}
 .dropdown-menu--ingredients {
   background-color: #3282f7;
 }
@@ -187,9 +191,6 @@ main {
   top: 7.5rem;
   transition: height 450ms ease-out;
   z-index: 1;
-}
-.dropdown-menu__options.is-active {
-  padding-bottom: 1rem;
 }
 .dropdown-menu__options::-webkit-scrollbar {
   display: none;

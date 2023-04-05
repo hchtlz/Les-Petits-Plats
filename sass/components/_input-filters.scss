@@ -16,8 +16,18 @@
     width: 66.7rem!important;
     
     @media screen and (max-width: $mq-small-tablet) { width: 100%!important }; 
-  }
+    
+    .dropdown-menu__sort-label{
+      img{
+        transform: rotate(180deg);
+        // add a smooth and cool transition
+        transition: transform 0.4s ease-in-out;
 
+      }
+    }
+
+  }
+  
   &--ingredients {
     background-color: $dodger-blue;
   }
@@ -27,7 +37,7 @@
   &--utensils {
     background-color: $flattered-flamingo;
   }
-
+  
   &__sort-label {
     display: block;
     right: 2rem;
@@ -73,10 +83,6 @@
     top: 7.5rem;
     transition: height 450ms ease-out;
     z-index: 1;
-
-    &.is-active {
-      padding-bottom: 1rem;
-    }
 
     &::-webkit-scrollbar {
       display: none;

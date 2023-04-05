@@ -77,21 +77,22 @@ export function filterIngredients() {
     const filteredRecipes = recipes.filter((recipe) => {
       return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
     })
-    if (searchBarValue.length > 2) {
+    if (searchBarValue.length > 2 && dropdownMenuIngredients.classList.contains('is-active')) {
       const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
       const uniqueIngredients = [...new Set(filteredIngredients)]
       const dropdownMenuOptions = dropdownMenuIngredients.querySelector('.dropdown-menu__options')
-      dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
+      dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients ">${ingredient}</li>`).join('')
     } 
-    else {
+    else if (searchBarValue.length < 3 && dropdownMenuIngredients.classList.contains('is-active')){
       const dropdownMenuOptions = dropdownMenuIngredients.querySelector('.dropdown-menu__options')
-      dropdownMenuOptions.innerHTML = recipes.map(recipe => recipe.ingredients.map(object => `<li class="dropdown-menu__option ingredients">${object.ingredient}</li>`)).flat().join('')
+      dropdownMenuOptions.innerHTML = recipes.map(recipe => recipe.ingredients.map(object => `<li class="dropdown-menu__option is-active ingredients">${object.ingredient}</li>`)).flat().join('')
     }
   })
 }
 
 export function filterAppliances() {
   const recipes = getRecipes()
+  const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices')
   const searchBar = document.querySelector('.main-index__input')
   let searchBarValue = searchBar.value
 
@@ -100,16 +101,22 @@ export function filterAppliances() {
     const filteredRecipes = recipes.filter((recipe) => {
       return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
     })
-    if (searchBarValue.length > 2) {
+    if (searchBarValue.length > 2 && dropdownMenuAppliances.classList.contains('is-active')) {
       const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance)
       const uniqueAppliances = [...new Set(filteredAppliances)]
-      console.log(uniqueAppliances)
+      const dropdownMenuOptions = dropdownMenuAppliances.querySelector('.dropdown-menu__options')
+      dropdownMenuOptions.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option appliances">${appliance}</li>`).join('')
+    }
+    else if (searchBarValue.length < 3 && dropdownMenuAppliances.classList.contains('is-active')){
+      const dropdownMenuOptions = dropdownMenuAppliances.querySelector('.dropdown-menu__options')
+      dropdownMenuOptions.innerHTML = recipes.map(recipe => `<li class="dropdown-menu__option is-active appliances">${recipe.appliance}</li>`).join('')
     }
   })
 }
 
 export function filterUstensils() {
   const recipes = getRecipes()
+  const dropdownMenuUstensils = document.querySelector('.dropdown-menu--utensils')
   const searchBar = document.querySelector('.main-index__input')
   let searchBarValue = searchBar.value
 
@@ -118,10 +125,15 @@ export function filterUstensils() {
     const filteredRecipes = recipes.filter((recipe) => {
       return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
     })
-    if (searchBarValue.length > 2) {
+    if (searchBarValue.length > 2 && dropdownMenuUstensils.classList.contains('is-active')) {
       const filteredUstensils = filteredRecipes.map(recipe => recipe.ustensils).flat()
       const uniqueUstensils = [...new Set(filteredUstensils)]
-      console.log(uniqueUstensils)
+      const dropdownMenuOptions = dropdownMenuUstensils.querySelector('.dropdown-menu__options')
+      dropdownMenuOptions.innerHTML = uniqueUstensils.map(ustensil => `<li class="dropdown-menu__option ustensils">${ustensil}</li>`).join('')
+    }
+    else if (searchBarValue.length < 3 && dropdownMenuUstensils.classList.contains('is-active')){
+      const dropdownMenuOptions = dropdownMenuUstensils.querySelector('.dropdown-menu__options')
+      dropdownMenuOptions.innerHTML = recipes.map(recipe => recipe.ustensils.map(ustensil => `<li class="dropdown-menu__option is-active ustensils">${ustensil}</li>`)).flat().join('')
     }
   })
 }
