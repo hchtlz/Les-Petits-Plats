@@ -12,17 +12,11 @@ export function sorting(){
       return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
     })
 
-    if (searchBarValue.length > 2) {
+    if (searchBarValue.length > 2 || searchBarValue.length < 3) {
       const recipesContainer = document.querySelector('.main-index__results-container')
+      let a = searchBarValue.length > 2 ? filteredRecipes : recipes;
       recipesContainer.innerHTML = ''
-      filteredRecipes.forEach((recipe) => {
-        const card = createCard(recipe)
-        recipesContainer.appendChild(card)
-      })
-    } else if (searchBarValue.length < 3) {
-      const recipesContainer = document.querySelector('.main-index__results-container')
-      recipesContainer.innerHTML = ''
-      recipes.forEach((recipe) => {
+      a.forEach((recipe) => {
         const card = createCard(recipe)
         recipesContainer.appendChild(card)
       })
@@ -39,18 +33,31 @@ export function sorting(){
       `
       recipesContainer.appendChild(errorDiv)
     }
-  })
+  
+    function filterIngredients() {
+      const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(ingredient => ingredient.ingredient)).flat()
+      const uniqueIngredients = [...new Set(filteredIngredients)]
+      console.log(uniqueIngredients)
+    }
+    filterIngredients()
 
-  // récupérer le texte du li dropdown-menu__option et l'afficher dans la console quand on clique dessus
-  const dropdownMenuOptions = document.querySelectorAll('.dropdown-menu__option')
-  dropdownMenuOptions.forEach((option) => {
-    option.addEventListener('click', (e) => {
-      console.log(e.target.textContent)
-    })
+    function filterAppliances() {
+      const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance)
+      const uniqueAppliances = [...new Set(filteredAppliances)]
+      console.log(uniqueAppliances)
+    }
+    filterAppliances()
+
+    function filterUstensils() {
+      const filteredUstensils = filteredRecipes.map(recipe => recipe.ustensils).flat()
+      const uniqueUstensils = [...new Set(filteredUstensils)]
+      console.log(uniqueUstensils)
+    }
+    filterUstensils()
   })
 }
 
-function createCard(recipe) {
+export function createCard(recipe) {
   const card = document.createElement('div')
   card.classList.add('card')
   card.innerHTML = `
