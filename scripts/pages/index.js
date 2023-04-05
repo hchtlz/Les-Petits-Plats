@@ -36,7 +36,7 @@ dropdownMenuIngredients.addEventListener('click', () => {
     
     const uniqueIngredients = [...new Set(allIngredients)]
     dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
-    
+
   } else {
     dropdownMenuOptions.innerHTML = ''
 
