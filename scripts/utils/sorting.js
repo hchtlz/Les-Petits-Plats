@@ -21,7 +21,6 @@ export function sorting(){
         recipesContainer.appendChild(card)
       })
     }
-    // afficher message d'erreur quand il n'y a pas de résultats
     if (searchBarValue.length > 2 && filteredRecipes.length === 0) {
       const recipesContainer = document.querySelector('.main-index__results-container')
       recipesContainer.innerHTML = ''
@@ -64,8 +63,12 @@ export function createCard(recipe) {
   return card
 }
 
+// CORIGER LE CODE 
+// CORRIGER LES CLASS IS-ACTIVE
+
 export function filterIngredients() {
   const recipes = getRecipes()
+  const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredients')
   const searchBar = document.querySelector('.main-index__input')
   let searchBarValue = searchBar.value
 
@@ -77,7 +80,12 @@ export function filterIngredients() {
     if (searchBarValue.length > 2) {
       const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
       const uniqueIngredients = [...new Set(filteredIngredients)]
-      console.log(uniqueIngredients)
+      const dropdownMenuOptions = dropdownMenuIngredients.querySelector('.dropdown-menu__options')
+      dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
+    } 
+    else {
+      const dropdownMenuOptions = dropdownMenuIngredients.querySelector('.dropdown-menu__options')
+      dropdownMenuOptions.innerHTML = recipes.map(recipe => recipe.ingredients.map(object => `<li class="dropdown-menu__option ingredients">${object.ingredient}</li>`)).flat().join('')
     }
   })
 }

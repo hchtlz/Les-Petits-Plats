@@ -36,7 +36,7 @@ dropdownMenuIngredients.addEventListener('click', () => {
     
     const uniqueIngredients = [...new Set(allIngredients)]
     dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
-
+    
   } else {
     dropdownMenuOptions.innerHTML = ''
 
@@ -91,7 +91,6 @@ dropdownMenuUstensils.addEventListener('click', () => {
   }
 })
 
-// function to search tag in the dropdown menu
 function searchTag (e) {
   const input = e.target
   const filter = input.value.toUpperCase()
@@ -138,6 +137,27 @@ dropdownMenu.forEach(menu => {
       }
       searchResults.appendChild(tag)
     }
+
+    // afficher qu'un seul tag par catégorie
+    const tags = document.querySelectorAll('.tag')
+    tags.forEach(tag => {
+      if (tag.classList.contains('ingredients')) {
+        const ingredientsTags = document.querySelectorAll('.ingredients')
+        if (ingredientsTags.length > 1) {
+          ingredientsTags[0].remove()
+        }
+      } else if (tag.classList.contains('devices')) {
+        const devicesTags = document.querySelectorAll('.devices')
+        if (devicesTags.length > 1) {
+          devicesTags[0].remove()
+        }
+      } else if (tag.classList.contains('utensils')) {
+        const utensilsTags = document.querySelectorAll('.utensils')
+        if (utensilsTags.length > 1) {
+          utensilsTags[0].remove()
+        }
+      }
+    })
   })
 })
 
