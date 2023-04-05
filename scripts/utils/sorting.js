@@ -1,4 +1,5 @@
 import { getRecipes } from '../utils/model.js'
+import { createCard } from '../utils/card.js'
 
 export function sorting(){
 
@@ -35,42 +36,20 @@ export function sorting(){
   })
 }
 
-export function createCard(recipe) {
-  const card = document.createElement('div')
-  card.classList.add('card')
-  card.innerHTML = `
-    <div class="card__image"></div>
-    <div class="card__text-container">
-      <div class="card__header">
-        <h2 class="card__header-title">${recipe.name}</h2>
-        <div class="card__header-time">
-          <i class="far fa-clock"></i>
-          <p class="card__header-time--text">${recipe.time} min</p>
-        </div>
-      </div>
-      <div class="card__recipe-details">
-      <p class="card__recipe-details--description">${recipe.description}</p>
-      <ul class="card__recipe-details--ingredients-list">
-        ${recipe.ingredients.map(object => `
-        <li class="card__recipe-details--ingredient">
-        <span class="card__recipe-details--ingredient-name">${object.ingredient? object.ingredient : ''}:</span>
-        <span class="card__recipe-details--ingredient-quantity">${object.quantity? object.quantity : ''}</span>
-        <span class="card__recipe-details--ingredient-unit">${object.unit? object.unit : ''}</span>
-        </li>`).join('')}
-      </ul>
-    </div>
-  `
-  return card
-}
-
 // CORIGER LE CODE 
 // CORRIGER LES CLASS IS-ACTIVE
 
 export function filterIngredients() {
   const recipes = getRecipes()
   const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredients')
+  const dropdownMenuOptions = dropdownMenuIngredients.querySelector('.dropdown-menu__options--ingredients')
   const searchBar = document.querySelector('.main-index__input')
   let searchBarValue = searchBar.value
+
+  // par default, afficher tous les ingredients
+  const allIngredients = recipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
+  const uniqueIngredients = [...new Set(allIngredients)]
+  dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
 
   searchBar.addEventListener('keyup', (e) => {
     searchBarValue = e.target.value
@@ -80,11 +59,9 @@ export function filterIngredients() {
     if (searchBarValue.length > 2 && dropdownMenuIngredients.classList.contains('is-active')) {
       const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
       const uniqueIngredients = [...new Set(filteredIngredients)]
-      const dropdownMenuOptions = dropdownMenuIngredients.querySelector('.dropdown-menu__options')
-      dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients ">${ingredient}</li>`).join('')
-    } 
+      dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
+    }
     else if (searchBarValue.length < 3 && dropdownMenuIngredients.classList.contains('is-active')){
-      const dropdownMenuOptions = dropdownMenuIngredients.querySelector('.dropdown-menu__options')
       dropdownMenuOptions.innerHTML = recipes.map(recipe => recipe.ingredients.map(object => `<li class="dropdown-menu__option is-active ingredients">${object.ingredient}</li>`)).flat().join('')
     }
   })
