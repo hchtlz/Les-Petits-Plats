@@ -36,13 +36,6 @@ export function sorting(){
   })
 }
 
-// CORIGER LE CODE 
-// CORRIGER LES CLASS IS-ACTIVE
-
-export function initializeFilterIngredients() {
-  
-}
-
 export function filterIngredients() {
   const recipes = getRecipes()
   const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredients')
@@ -75,23 +68,28 @@ export function filterIngredients() {
 export function filterAppliances() {
   const recipes = getRecipes()
   const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices')
+  const dropdownMenuOptions = dropdownMenuAppliances.querySelector('.dropdown-menu__options--devices')
   const searchBar = document.querySelector('.main-index__input')
   let searchBarValue = searchBar.value
+
+  // par default, afficher tous les appareils
+  const allAppliances = recipes.map(recipe => recipe.appliance)
+  const uniqueAppliances = [...new Set(allAppliances)]
+  dropdownMenuOptions.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option devices">${appliance}</li>`).join('')
 
   searchBar.addEventListener('keyup', (e) => {
     searchBarValue = e.target.value
     const filteredRecipes = recipes.filter((recipe) => {
       return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
     })
-    if (searchBarValue.length > 2 && dropdownMenuAppliances.classList.contains('is-active')) {
+
+    if (searchBarValue.length > 2) {
       const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance)
       const uniqueAppliances = [...new Set(filteredAppliances)]
-      const dropdownMenuOptions = dropdownMenuAppliances.querySelector('.dropdown-menu__options')
-      dropdownMenuOptions.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option appliances">${appliance}</li>`).join('')
+      dropdownMenuOptions.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option devices">${appliance}</li>`).join('')
     }
-    else if (searchBarValue.length < 3 && dropdownMenuAppliances.classList.contains('is-active')){
-      const dropdownMenuOptions = dropdownMenuAppliances.querySelector('.dropdown-menu__options')
-      dropdownMenuOptions.innerHTML = recipes.map(recipe => `<li class="dropdown-menu__option is-active appliances">${recipe.appliance}</li>`).join('')
+    else if (searchBarValue.length < 3) {
+      dropdownMenuOptions.innerHTML = recipes.map(recipe => `<li class="dropdown-menu__option devices">${recipe.appliance}</li>`).join('')
     }
   })
 }
@@ -99,23 +97,28 @@ export function filterAppliances() {
 export function filterUstensils() {
   const recipes = getRecipes()
   const dropdownMenuUstensils = document.querySelector('.dropdown-menu--utensils')
+  const dropdownMenuOptions = dropdownMenuUstensils.querySelector('.dropdown-menu__options--utensils')
   const searchBar = document.querySelector('.main-index__input')
   let searchBarValue = searchBar.value
+
+  // par default, afficher tous les ustensiles
+  const allUstensils = recipes.map(recipe => recipe.ustensils)
+  const uniqueUstensils = [...new Set(allUstensils.flat())]
+  dropdownMenuOptions.innerHTML = uniqueUstensils.map(ustensil => `<li class="dropdown-menu__option utensils">${ustensil}</li>`).join('')
 
   searchBar.addEventListener('keyup', (e) => {
     searchBarValue = e.target.value
     const filteredRecipes = recipes.filter((recipe) => {
       return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
     })
-    if (searchBarValue.length > 2 && dropdownMenuUstensils.classList.contains('is-active')) {
-      const filteredUstensils = filteredRecipes.map(recipe => recipe.ustensils).flat()
-      const uniqueUstensils = [...new Set(filteredUstensils)]
-      const dropdownMenuOptions = dropdownMenuUstensils.querySelector('.dropdown-menu__options')
-      dropdownMenuOptions.innerHTML = uniqueUstensils.map(ustensil => `<li class="dropdown-menu__option ustensils">${ustensil}</li>`).join('')
+
+    if (searchBarValue.length > 2) {
+      const filteredUstensils = filteredRecipes.map(recipe => recipe.ustensils)
+      const uniqueUstensils = [...new Set(filteredUstensils.flat())]
+      dropdownMenuOptions.innerHTML = uniqueUstensils.map(ustensil => `<li class="dropdown-menu__option utensils">${ustensil}</li>`).join('')
     }
-    else if (searchBarValue.length < 3 && dropdownMenuUstensils.classList.contains('is-active')){
-      const dropdownMenuOptions = dropdownMenuUstensils.querySelector('.dropdown-menu__options')
-      dropdownMenuOptions.innerHTML = recipes.map(recipe => recipe.ustensils.map(ustensil => `<li class="dropdown-menu__option is-active ustensils">${ustensil}</li>`)).flat().join('')
+    else if (searchBarValue.length < 3) {
+      dropdownMenuOptions.innerHTML = recipes.map(recipe => recipe.ustensils.map(ustensil => `<li class="dropdown-menu__option utensils">${ustensil}</li>`)).flat().join('')
     }
   })
 }

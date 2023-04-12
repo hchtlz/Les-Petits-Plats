@@ -197,17 +197,25 @@ main {
   display: none;
 }
 .dropdown-menu__options--ingredients {
-  display: none;
   background-color: #3282f7;
+  display: none;
 }
 .dropdown-menu__options--ingredients.is-active {
   display: grid;
 }
 .dropdown-menu__options--devices {
   background-color: #68d9a4;
+  display: none;
+}
+.dropdown-menu__options--devices.is-active {
+  display: grid;
 }
 .dropdown-menu__options--utensils {
   background-color: #ed6454;
+  display: none;
+}
+.dropdown-menu__options--utensils.is-active {
+  display: grid;
 }
 .dropdown-menu__option {
   align-items: center;

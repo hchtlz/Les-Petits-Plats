@@ -25,14 +25,12 @@ const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices')
 const dropdownMenuUstensils = document.querySelector('.dropdown-menu--utensils')
 
 filterIngredients()
-// dropdown menu ingredients
 dropdownMenuIngredients.addEventListener('click', () => {
   dropdownMenuIngredients.classList.toggle('is-active')
   dropdownMenuIngredients.querySelector('.dropdown-menu__options').classList.toggle('is-active')
   const dropdownMenuOptions = dropdownMenuIngredients.querySelector('.dropdown-menu__options')
   
   if (dropdownMenuOptions.classList.contains('is-active')) {
-    
     const input = dropdownMenuIngredients.querySelector('.dropdown-menu__sort-input')
     input.value = ''
 
@@ -42,29 +40,23 @@ dropdownMenuIngredients.addEventListener('click', () => {
   }
 })
 
-// dropdown menu appliances
+filterAppliances();
 dropdownMenuAppliances.addEventListener('click', () => {
   dropdownMenuAppliances.classList.toggle('is-active')
   dropdownMenuAppliances.querySelector('.dropdown-menu__options').classList.toggle('is-active')
   const dropdownMenuOptions = dropdownMenuAppliances.querySelector('.dropdown-menu__options')
   
   if (dropdownMenuOptions.classList.contains('is-active')) {
-    
     const input = dropdownMenuAppliances.querySelector('.dropdown-menu__sort-input')
     input.value = ''
-
-    const allAppliances = recipes.map(recipe => recipe.appliance)
-    const uniqueAppliances = [...new Set(allAppliances)]
-    dropdownMenuOptions.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option devices">${appliance}</li>`).join('')
   
   } else {
-    dropdownMenuOptions.innerHTML = ''
-
     const input = dropdownMenuAppliances.querySelector('.dropdown-menu__sort-input')
     input.value = 'Appareils'
   }
 })
 
+filterUstensils();
 // dropdown menu ustensils
 dropdownMenuUstensils.addEventListener('click', () => {
   dropdownMenuUstensils.classList.toggle('is-active')
@@ -72,17 +64,10 @@ dropdownMenuUstensils.addEventListener('click', () => {
   const dropdownMenuOptions = dropdownMenuUstensils.querySelector('.dropdown-menu__options')
   
   if (dropdownMenuOptions.classList.contains('is-active')) {
-    
     const input = dropdownMenuUstensils.querySelector('.dropdown-menu__sort-input')
     input.value = ''
-    
-    const allUstensils = recipes.map(recipe => recipe.ustensils).flat()
-    const uniqueUstensils = [...new Set(allUstensils)]
-    dropdownMenuOptions.innerHTML = uniqueUstensils.map(ustensil => `<li class="dropdown-menu__option utensils">${ustensil}</li>`).join('')
   
   } else {
-    dropdownMenuOptions.innerHTML = ''
-    
     const input = dropdownMenuUstensils.querySelector('.dropdown-menu__sort-input')
     input.value = 'Ustensiles'
   }
@@ -121,8 +106,6 @@ dropdownMenu.forEach(menu => {
         <p class="tag__text">${e.target.outerText}</p>
         <img class="tag__cross" src="assets/SVGS/cross.svg" alt="cross">
       `
-      console.log(e)
-      console.log(tag)
       tag.querySelector('.tag__cross').addEventListener('click', () => {
         tag.remove()
       })
@@ -147,12 +130,12 @@ dropdownMenu.forEach(menu => {
           ingredientsTags[0].remove()
         }
       } else if (tag.classList.contains('devices')) {
-        const devicesTags = document.querySelectorAll('.devices')
+        const devicesTags = document.querySelectorAll('.tag.devices')
         if (devicesTags.length > 1) {
           devicesTags[0].remove()
         }
       } else if (tag.classList.contains('utensils')) {
-        const utensilsTags = document.querySelectorAll('.utensils')
+        const utensilsTags = document.querySelectorAll('.tag.utensils')
         if (utensilsTags.length > 1) {
           utensilsTags[0].remove()
         }
@@ -161,7 +144,4 @@ dropdownMenu.forEach(menu => {
   })
 })
 
-
 sorting();
-filterAppliances();
-filterUstensils();
