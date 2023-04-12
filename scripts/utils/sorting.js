@@ -3,10 +3,20 @@ import { createCard } from '../utils/card.js'
 
 export function sorting(){
 
+  // Variables and constants
   const recipes = getRecipes()
   const searchBar = document.querySelector('.main-index__input')
+  const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredients')
+  const dropdownMenuOptionsIngredients = dropdownMenuIngredients.querySelector('.dropdown-menu__options--ingredients')
+  const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices')
+  const dropdownMenuOptionsAppliances = dropdownMenuAppliances.querySelector('.dropdown-menu__options--devices')
+  const dropdownMenuUtensils = document.querySelector('.dropdown-menu--utensils')
+  const dropdownMenuOptionsUtensils = dropdownMenuUtensils.querySelector('.dropdown-menu__options--utensils')
+  const recipesContainer = document.querySelector('.main-index__results-container')
+  const dropdownMenu = document.querySelectorAll('.dropdown-menu')
   let searchBarValue = searchBar.value
 
+  // Search bar
   searchBar.addEventListener('keyup', (e) => {
     searchBarValue = e.target.value
     const filteredRecipes = recipes.filter((recipe) => {
@@ -14,7 +24,6 @@ export function sorting(){
     })
 
     if (searchBarValue.length > 2 || searchBarValue.length < 3) {
-      const recipesContainer = document.querySelector('.main-index__results-container')
       let a = searchBarValue.length > 2 ? filteredRecipes : recipes;
       recipesContainer.innerHTML = ''
       a.forEach((recipe) => {
@@ -23,72 +32,46 @@ export function sorting(){
       })
     }
     if (searchBarValue.length > 2 && filteredRecipes.length === 0) {
-      const recipesContainer = document.querySelector('.main-index__results-container')
       recipesContainer.innerHTML = ''
       const errorDiv = document.createElement('div')
       errorDiv.classList.add('error')
       errorDiv.innerHTML = `
         <img class="main-index__error-image" src="assets/images/no-results.png" alt="error">
         <p class="main-index__error-text">Aucune recette ne correspond à votre recherche...</p>
-      `
+        `
       recipesContainer.appendChild(errorDiv)
     }
   })
-  
-   // quand on clique sur un li, on affiche les recettes correspondantes
-  const dropdownMenu = document.querySelectorAll('.dropdown-menu')
+
+  // REPARER LE PROBLEME DE CETTE FONCTION ICI 🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽
+
+  // Dropdowns
   dropdownMenu.forEach(menu => {
     menu.addEventListener('click', (e) => {
       // quand un li est selectionné, afficher seulement les recettes correspondantes dans les autres dropdowns
-      const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredients')
-      const dropdownMenuOptionsIngredients = dropdownMenuIngredients.querySelector('.dropdown-menu__options--ingredients')
-      const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices')
-      const dropdownMenuOptionsAppliances = dropdownMenuAppliances.querySelector('.dropdown-menu__options--devices')
-      const dropdownMenuUtensils = document.querySelector('.dropdown-menu--utensils')
-      const dropdownMenuOptionsUtensils = dropdownMenuUtensils.querySelector('.dropdown-menu__options--utensils')
-
       if (e.target.classList.contains('dropdown-menu__option')) {
-        const recipesContainer = document.querySelector('.main-index__results-container')
         recipesContainer.innerHTML = ''
-
-        if (e.target.classList.contains('ingredients')) {
-          const filteredRecipes = recipes.filter((recipe) => {
-            return recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(e.target.outerText.toLowerCase())
-          })
-          filteredRecipes.forEach((recipe) => {
-            const card = createCard(recipe)
-            recipesContainer.appendChild(card)
-          })
-          const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
-          const uniqueIngredients = [...new Set(filteredIngredients)]
-          dropdownMenuOptionsIngredients.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
-          dropdownMenuOptionsAppliances.innerHTML = filteredRecipes.map(recipe => `<li class="dropdown-menu__option devices">${recipe.appliance}</li>`).join('')
-          dropdownMenuOptionsUtensils.innerHTML = filteredRecipes.map(recipe => recipe.ustensils.map(object => `<li class="dropdown-menu__option utensils">${object}</li>`)).flat().join('')
-        } else if (e.target.classList.contains('devices')) {
-          const filteredRecipes = recipes.filter((recipe) => {
-            return recipe.appliance.toLowerCase().includes(e.target.outerText.toLowerCase())
-          })
-          filteredRecipes.forEach((recipe) => {
-            const card = createCard(recipe)
-            recipesContainer.appendChild(card)
-          })
-          const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
-          const uniqueIngredients = [...new Set(filteredIngredients)]
-          dropdownMenuOptionsIngredients.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
-          dropdownMenuOptionsAppliances.innerHTML = filteredRecipes.map(recipe => `<li class="dropdown-menu__option devices">${recipe.appliance}</li>`).join('')
-          dropdownMenuOptionsUtensils.innerHTML = filteredRecipes.map(recipe => recipe.ustensils.map(object => `<li class="dropdown-menu__option utensils">${object}</li>`)).flat().join('')
-        } else if (e.target.classList.contains('utensils')) {
-          const filteredRecipes = recipes.filter((recipe) => {
-            return recipe.ustensils.map(object => object).join('').toLowerCase().includes(e.target.outerText.toLowerCase())
-          })
-          filteredRecipes.forEach((recipe) => {
-            const card = createCard(recipe)
-            recipesContainer.appendChild(card)
-          })
-        }
+        const filteredRecipes = recipes.filter((recipe) => {
+          return recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(e.target.textContent.toLowerCase()) || recipe.appliance.toLowerCase().includes(e.target.textContent.toLowerCase()) || recipe.ustensils.map(object => object).join('').toLowerCase().includes(e.target.textContent.toLowerCase())
+        })
+        filteredRecipes.forEach((recipe) => {
+          const card = createCard(recipe)
+          recipesContainer.appendChild(card)
+        })
+        const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
+        // afficher mais pas de doublons dans les dropdowns
+        const uniqueIngredients = [...new Set(filteredIngredients)]
+        dropdownMenuOptionsIngredients.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
+        const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance)
+        const uniqueAppliances = [...new Set(filteredAppliances)]
+        dropdownMenuOptionsAppliances.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option devices">${appliance}</li>`).join('')
+        const filteredUtensils = filteredRecipes.map(recipe => recipe.ustensils.map(object => object)).flat()
+        const uniqueUtensils = [...new Set(filteredUtensils)]
+        dropdownMenuOptionsUtensils.innerHTML = uniqueUtensils.map(utensil => `<li class="dropdown-menu__option utensils">${utensil}</li>`).join('')
       }
+      // TODO : Affiner la recherche en additionnant les filtres (ex: si je filtre sur l'ingrédient "oeuf", et que je filtre ensuite sur l'appareil "mixeur", je veux que les recettes qui contiennent à la fois "oeuf" et "mixeur" soient affichées 😈)
     })
-  }) 
+  })
 }
 
 export function filterIngredients() {

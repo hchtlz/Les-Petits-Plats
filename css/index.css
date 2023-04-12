@@ -247,9 +247,10 @@ main {
   padding: 0.5rem 1rem;
 }
 .tag__text {
-  text-transform: capitalize;
   color: #fff;
+  font-size: 1.4rem;
   padding-right: 1rem;
+  text-transform: capitalize;
 }
 .tag__cross {
   cursor: pointer;

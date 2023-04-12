@@ -6,20 +6,19 @@ import { filterAppliances } from '../utils/sorting.js'
 import { filterUstensils } from '../utils/sorting.js'
 
 const recipes = getRecipes()
+const dropdownMenu = document.querySelectorAll('.dropdown-menu')
+const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredients')
+const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices')
+const dropdownMenuUstensils = document.querySelector('.dropdown-menu--utensils')
+const mainIndexResults = document.querySelector('.main-index__results-container')
 
 // Construction of the card
-const mainIndexResults = document.querySelector('.main-index__results-container')
 recipes.forEach(recipe => {
   const card = createCard(recipe)
   mainIndexResults.appendChild(card)
 })
 
-// dropdown menu
-const dropdownMenu = document.querySelectorAll('.dropdown-menu')
-const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredients')
-const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices')
-const dropdownMenuUstensils = document.querySelector('.dropdown-menu--utensils')
-
+// Sorting
 filterIngredients()
 dropdownMenuIngredients.addEventListener('click', () => {
   dropdownMenuIngredients.classList.toggle('is-active')
@@ -68,6 +67,7 @@ dropdownMenuUstensils.addEventListener('click', () => {
   }
 })
 
+// search tags
 function searchTag (e) {
   const input = e.target
   const filter = input.value.toUpperCase()
@@ -138,4 +138,6 @@ dropdownMenu.forEach(menu => {
     })
   })
 })
+
+// display recipes
 sorting();
