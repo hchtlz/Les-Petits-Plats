@@ -34,6 +34,61 @@ export function sorting(){
       recipesContainer.appendChild(errorDiv)
     }
   })
+  
+   // quand on clique sur un li, on affiche les recettes correspondantes
+  const dropdownMenu = document.querySelectorAll('.dropdown-menu')
+  dropdownMenu.forEach(menu => {
+    menu.addEventListener('click', (e) => {
+      // quand un li est selectionné, afficher seulement les recettes correspondantes dans les autres dropdowns
+      const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredients')
+      const dropdownMenuOptionsIngredients = dropdownMenuIngredients.querySelector('.dropdown-menu__options--ingredients')
+      const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices')
+      const dropdownMenuOptionsAppliances = dropdownMenuAppliances.querySelector('.dropdown-menu__options--devices')
+      const dropdownMenuUtensils = document.querySelector('.dropdown-menu--utensils')
+      const dropdownMenuOptionsUtensils = dropdownMenuUtensils.querySelector('.dropdown-menu__options--utensils')
+
+      if (e.target.classList.contains('dropdown-menu__option')) {
+        const recipesContainer = document.querySelector('.main-index__results-container')
+        recipesContainer.innerHTML = ''
+
+        if (e.target.classList.contains('ingredients')) {
+          const filteredRecipes = recipes.filter((recipe) => {
+            return recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(e.target.outerText.toLowerCase())
+          })
+          filteredRecipes.forEach((recipe) => {
+            const card = createCard(recipe)
+            recipesContainer.appendChild(card)
+          })
+          const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
+          const uniqueIngredients = [...new Set(filteredIngredients)]
+          dropdownMenuOptionsIngredients.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
+          dropdownMenuOptionsAppliances.innerHTML = filteredRecipes.map(recipe => `<li class="dropdown-menu__option devices">${recipe.appliance}</li>`).join('')
+          dropdownMenuOptionsUtensils.innerHTML = filteredRecipes.map(recipe => recipe.ustensils.map(object => `<li class="dropdown-menu__option utensils">${object}</li>`)).flat().join('')
+        } else if (e.target.classList.contains('devices')) {
+          const filteredRecipes = recipes.filter((recipe) => {
+            return recipe.appliance.toLowerCase().includes(e.target.outerText.toLowerCase())
+          })
+          filteredRecipes.forEach((recipe) => {
+            const card = createCard(recipe)
+            recipesContainer.appendChild(card)
+          })
+          const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
+          const uniqueIngredients = [...new Set(filteredIngredients)]
+          dropdownMenuOptionsIngredients.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
+          dropdownMenuOptionsAppliances.innerHTML = filteredRecipes.map(recipe => `<li class="dropdown-menu__option devices">${recipe.appliance}</li>`).join('')
+          dropdownMenuOptionsUtensils.innerHTML = filteredRecipes.map(recipe => recipe.ustensils.map(object => `<li class="dropdown-menu__option utensils">${object}</li>`)).flat().join('')
+        } else if (e.target.classList.contains('utensils')) {
+          const filteredRecipes = recipes.filter((recipe) => {
+            return recipe.ustensils.map(object => object).join('').toLowerCase().includes(e.target.outerText.toLowerCase())
+          })
+          filteredRecipes.forEach((recipe) => {
+            const card = createCard(recipe)
+            recipesContainer.appendChild(card)
+          })
+        }
+      }
+    })
+  }) 
 }
 
 export function filterIngredients() {
@@ -93,132 +148,18 @@ export function filterAppliances() {
     }
   })
 
-  // quand on clique sur un li, on affiche les recettes correspondantes et quand on ferme le tag on affiche toutes les recettes
-  dropdownMenuOptions.addEventListener('click', (e) => {
-    if (e.target.classList.contains('devices')) {
-      const filteredRecipes = recipes.filter((recipe) => {
-        return recipe.appliance === e.target.textContent
-      })
-      const recipesContainer = document.querySelector('.main-index__results-container')
-      recipesContainer.innerHTML = ''
-      filteredRecipes.forEach((recipe) => {
-        const card = createCard(recipe)
-        recipesContainer.appendChild(card)
-      })
-
-      // quand on ferme le tag, on affiche toutes les recettes
-      const tagsContainer = document.querySelector('.main-index__tags-container')
-      tagsContainer.addEventListener('click', (e) => {
-        if (e.target.classList.contains('tag__cross')) {
-          recipesContainer.innerHTML = ''
-          recipes.forEach((recipe) => {
-            const card = createCard(recipe)
-            recipesContainer.appendChild(card)
-            const allAppliances = recipes.map(recipe => recipe.appliance)
-            const uniqueAppliances = [...new Set(allAppliances)]
-            dropdownMenuOptions.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option devices">${appliance}</li>`).join('')
-          })
-        }
-      })
-
-      // quand on clique sur un li, on affiche seulement les li correspondants
-      const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredients')
-      const dropdownMenuOptionsIngredients = dropdownMenuIngredients.querySelector('.dropdown-menu__options--ingredients')
-
-      const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices')
-      const dropdownMenuOptionsAppliances = dropdownMenuAppliances.querySelector('.dropdown-menu__options--devices')
-      
-      const dropdownMenuUstensils = document.querySelector('.dropdown-menu--utensils')
-      const dropdownMenuOptionsUstensils = dropdownMenuUstensils.querySelector('.dropdown-menu__options--utensils')
-
-      const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
-      const uniqueIngredients = [...new Set(filteredIngredients)]
-      dropdownMenuOptionsIngredients.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
-
-      const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance)
-      const uniqueAppliances = [...new Set(filteredAppliances)]
-      dropdownMenuOptionsAppliances.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option devices">${appliance}</li>`).join('')
-      
-      const filteredUstensils = filteredRecipes.map(recipe => recipe.ustensils).flat()
-      const uniqueUstensils = [...new Set(filteredUstensils)]
-      dropdownMenuOptionsUstensils.innerHTML = uniqueUstensils.map(ustensil => `<li class="dropdown-menu__option utensils">${ustensil}</li>`).join('')
-      
-
-      // quand on clique sur un li, on affiche les recettes correspondantes et quand on ferme le tag on affiche toutes les recettes
-      dropdownMenuOptionsIngredients.addEventListener('click', (e) => {
-        if (e.target.classList.contains('ingredients')) {
-          const filteredRecipes = recipes.filter((recipe) => {
-            return recipe.ingredients.map(object => object.ingredient).includes(e.target.textContent)
-          })
-          recipesContainer.innerHTML = ''
-          filteredRecipes.forEach((recipe) => {
-            const card = createCard(recipe)
-            recipesContainer.appendChild(card)
-          })
-          // quand on ferme le tag, on affiche toutes les recettes et tous les li
-          const tagsContainer = document.querySelector('.main-index__tags-container')
-          tagsContainer.addEventListener('click', (e) => {
-            if (e.target.classList.contains('tag__cross')) {
-              recipesContainer.innerHTML = ''
-              recipes.forEach((recipe) => {
-                const card = createCard(recipe)
-                recipesContainer.appendChild(card)
-              })
-            }
-          })
-        }
-      })
-      dropdownMenuOptionsUstensils.addEventListener('click', (e) => {
-        if (e.target.classList.contains('utensils')) {
-          const filteredRecipes = recipes.filter((recipe) => {
-            return recipe.ustensils.includes(e.target.textContent)
-          })
-          recipesContainer.innerHTML = ''
-          filteredRecipes.forEach((recipe) => {
-            const card = createCard(recipe)
-            recipesContainer.appendChild(card)
-          })
-          // quand on ferme le tag, on affiche toutes les recettes et tous les li
-          const tagsContainer = document.querySelector('.main-index__tags-container')
-          tagsContainer.addEventListener('click', (e) => {
-            if (e.target.classList.contains('tag__cross')) {
-              recipesContainer.innerHTML = ''
-              recipes.forEach((recipe) => {
-                const card = createCard(recipe)
-                recipesContainer.appendChild(card)
-              })
-            }
-          })
-        }
-      })
-      dropdownMenuOptionsAppliances.addEventListener('click', (e) => {
-        if (e.target.classList.contains('devices')) {
-          const filteredRecipes = recipes.filter((recipe) => {
-            return recipe.appliance === e.target.textContent
-          })
-          recipesContainer.innerHTML = ''
-          filteredRecipes.forEach((recipe) => {
-            const card = createCard(recipe)
-            recipesContainer.appendChild(card)
-          })
-          // quand on ferme le tag, on affiche toutes les recettes
-          const tagsContainer = document.querySelector('.main-index__tags-container')
-          tagsContainer.addEventListener('click', (e) => {
-            if (e.target.classList.contains('tag__cross')) {
-              recipesContainer.innerHTML = ''
-              recipes.forEach((recipe) => {
-                const card = createCard(recipe)
-                recipesContainer.appendChild(card)
-                const allAppliances = recipes.map(recipe => recipe.appliance)
-                const uniqueAppliances = [...new Set(allAppliances)]
-                dropdownMenuOptions.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option devices">${appliance}</li>`).join('')
-              })
-            }
-          })
-        }
-      })
-    }
-  })
+   // quand on clique sur un li dropdown-menu__option devices, on affiche les recettes correspondantes
+  /* dropdownMenuOptions.addEventListener('click', (e) => {
+    const recipesContainer = document.querySelector('.main-index__results-container')
+    const filteredRecipes = recipes.filter((recipe) => {
+      return recipe.appliance === e.target.innerText
+    })
+    recipesContainer.innerHTML = ''
+    filteredRecipes.forEach((recipe) => {
+      const card = createCard(recipe)
+      recipesContainer.appendChild(card)
+    })
+  }) */
 }
 
 export function filterUstensils() {
@@ -249,3 +190,4 @@ export function filterUstensils() {
     }
   })
 }
+

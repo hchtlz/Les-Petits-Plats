@@ -53,7 +53,6 @@ dropdownMenuAppliances.addEventListener('click', () => {
 })
 
 filterUstensils();
-// dropdown menu ustensils
 dropdownMenuUstensils.addEventListener('click', () => {
   dropdownMenuUstensils.classList.toggle('is-active')
   dropdownMenuUstensils.querySelector('.dropdown-menu__options').classList.toggle('is-active')
@@ -139,5 +138,4 @@ dropdownMenu.forEach(menu => {
     })
   })
 })
-
 sorting();
