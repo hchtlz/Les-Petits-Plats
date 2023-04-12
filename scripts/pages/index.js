@@ -4,7 +4,6 @@ import { createCard } from '../utils/card.js'
 import { filterIngredients } from '../utils/sorting.js'
 import { filterAppliances } from '../utils/sorting.js'
 import { filterUstensils } from '../utils/sorting.js'
-import { displayIngredients } from '../utils/sorting.js'
 
 const recipes = getRecipes()
 
@@ -14,9 +13,6 @@ recipes.forEach(recipe => {
   const card = createCard(recipe)
   mainIndexResults.appendChild(card)
 })
-
-// get data from the json file
-const allIngredients = recipes.map(recipe => recipe.ingredients.map(ingredient => ingredient.ingredient)).flat()
 
 // dropdown menu
 const dropdownMenu = document.querySelectorAll('.dropdown-menu')
@@ -125,9 +121,9 @@ dropdownMenu.forEach(menu => {
     tags.forEach(tag => {
       if (tag.classList.contains('ingredients')) {
         const ingredientsTags = document.querySelectorAll('.tag.ingredients')
-        console.log(ingredientsTags)
         if (ingredientsTags.length > 1) {
           ingredientsTags[0].remove()
+          filterIngredients()
         }
       } else if (tag.classList.contains('devices')) {
         const devicesTags = document.querySelectorAll('.tag.devices')
