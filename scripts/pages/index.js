@@ -24,6 +24,7 @@ const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredie
 const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices')
 const dropdownMenuUstensils = document.querySelector('.dropdown-menu--utensils')
 
+filterIngredients()
 // dropdown menu ingredients
 dropdownMenuIngredients.addEventListener('click', () => {
   dropdownMenuIngredients.classList.toggle('is-active')
@@ -32,13 +33,10 @@ dropdownMenuIngredients.addEventListener('click', () => {
   
   if (dropdownMenuOptions.classList.contains('is-active')) {
     
-    filterIngredients()
     const input = dropdownMenuIngredients.querySelector('.dropdown-menu__sort-input')
     input.value = ''
 
   } else {
-    dropdownMenuOptions.innerHTML = ''
-
     const input = dropdownMenuIngredients.querySelector('.dropdown-menu__sort-input')
     input.value = 'Ingrédients'
   }
@@ -120,9 +118,11 @@ dropdownMenu.forEach(menu => {
       const tag = document.createElement('div')
       tag.classList.add('tag')
       tag.innerHTML = `
-        <p class="tag__text">${e.target.textContent}</p>
+        <p class="tag__text">${e.target.outerText}</p>
         <img class="tag__cross" src="assets/SVGS/cross.svg" alt="cross">
       `
+      console.log(e)
+      console.log(tag)
       tag.querySelector('.tag__cross').addEventListener('click', () => {
         tag.remove()
       })
@@ -141,7 +141,8 @@ dropdownMenu.forEach(menu => {
     const tags = document.querySelectorAll('.tag')
     tags.forEach(tag => {
       if (tag.classList.contains('ingredients')) {
-        const ingredientsTags = document.querySelectorAll('.ingredients')
+        const ingredientsTags = document.querySelectorAll('.tag.ingredients')
+        console.log(ingredientsTags)
         if (ingredientsTags.length > 1) {
           ingredientsTags[0].remove()
         }

@@ -39,6 +39,10 @@ export function sorting(){
 // CORIGER LE CODE 
 // CORRIGER LES CLASS IS-ACTIVE
 
+export function initializeFilterIngredients() {
+  
+}
+
 export function filterIngredients() {
   const recipes = getRecipes()
   const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredients')
@@ -57,14 +61,13 @@ export function filterIngredients() {
       return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
     })
 
-    console.log("ingredients", filteredRecipes)
-    if (searchBarValue.length > 2 && dropdownMenuIngredients.classList.contains('is-active')) {
+    if (searchBarValue.length > 2) {
       const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
       const uniqueIngredients = [...new Set(filteredIngredients)]
       dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
     }
-    else if (searchBarValue.length < 3 && dropdownMenuIngredients.classList.contains('is-active')){
-      dropdownMenuOptions.innerHTML = recipes.map(recipe => recipe.ingredients.map(object => `<li class="dropdown-menu__option is-active ingredients">${object.ingredient}</li>`)).flat().join('')
+    else if (searchBarValue.length < 3) {
+      dropdownMenuOptions.innerHTML = recipes.map(recipe => recipe.ingredients.map(object => `<li class="dropdown-menu__option ingredients">${object.ingredient}</li>`)).flat().join('')
     }
   })
 }

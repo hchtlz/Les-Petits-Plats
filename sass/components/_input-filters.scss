@@ -22,7 +22,6 @@
         transform: rotate(180deg);
         // add a smooth and cool transition
         transition: transform 0.4s ease-in-out;
-
       }
     }
 
@@ -89,7 +88,11 @@
     }
     
     &--ingredients {
+      display: none;
       background-color: $dodger-blue;
+      &.is-active {
+        display: grid;
+      }
     }
     &--devices {
       background-color: $medium-aquamarine;
