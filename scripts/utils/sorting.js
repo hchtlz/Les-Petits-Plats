@@ -65,9 +65,11 @@ export function sorting(){
         const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
         const uniqueIngredients = [...new Set(filteredIngredients)]
         dropdownMenuOptionsIngredients.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
+
         const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance)
         const uniqueAppliances = [...new Set(filteredAppliances)]
         dropdownMenuOptionsAppliances.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option devices">${appliance}</li>`).join('')
+
         const filteredUtensils = filteredRecipes.map(recipe => recipe.ustensils.map(object => object)).flat()
         const uniqueUtensils = [...new Set(filteredUtensils)]
         dropdownMenuOptionsUtensils.innerHTML = uniqueUtensils.map(utensil => `<li class="dropdown-menu__option utensils">${utensil}</li>`).join('')
@@ -83,6 +85,17 @@ export function sorting(){
       if (index > -1) {
         filters.splice(index, 1)
       }
+      // actualiser les recettes affichées en fonction des filtres restants dans le tableau filters 
+      recipesContainer.innerHTML = ''
+      const filteredRecipes = recipes.filter((recipe) => {
+        return filters.every(filter => {
+          return recipe.ingredients.map(object => object.ingredient).includes(filter) || recipe.appliance.includes(filter) || recipe.ustensils.map(object => object).includes(filter)            
+        })
+      })
+      filteredRecipes.forEach((recipe) => {
+        const card = createCard(recipe)
+        recipesContainer.appendChild(card)
+      })
     }
     console.log(filters)
   })
