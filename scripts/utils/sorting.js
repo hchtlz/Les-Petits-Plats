@@ -43,11 +43,13 @@ export function sorting(){
     }
   })
 
+  // Tableau des filtres sélectionnés par l'utilisateur pour les dropdowns
   var filters = [];
 
   // Dropdowns
   dropdownMenu.forEach(menu => {
     menu.addEventListener('click', (e) => {
+      
       if (e.target.classList.contains('dropdown-menu__option')) {
         filters.push(e.target.textContent)
         recipesContainer.innerHTML = ''
@@ -56,6 +58,8 @@ export function sorting(){
             return recipe.ingredients.map(object => object.ingredient).includes(filter) || recipe.appliance.includes(filter) || recipe.ustensils.map(object => object).includes(filter)            
           })
         })
+
+        // afficher les recettes filtrées
         filteredRecipes.forEach((recipe) => {
           const card = createCard(recipe)
           recipesContainer.appendChild(card)
@@ -85,7 +89,8 @@ export function sorting(){
       if (index > -1) {
         filters.splice(index, 1)
       }
-      // actualiser les recettes affichées en fonction des filtres restants dans le tableau filters 
+      
+      // actualise les recettes affichées en fonction des filtres restants dans le tableau filters 
       recipesContainer.innerHTML = ''
       const filteredRecipes = recipes.filter((recipe) => {
         return filters.every(filter => {
@@ -96,8 +101,20 @@ export function sorting(){
         const card = createCard(recipe)
         recipesContainer.appendChild(card)
       })
+
+      // afficher les filtres des recettes filtrées
+      const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
+      const uniqueIngredients = [...new Set(filteredIngredients)]
+      dropdownMenuOptionsIngredients.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
+
+      const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance)
+      const uniqueAppliances = [...new Set(filteredAppliances)]
+      dropdownMenuOptionsAppliances.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option devices">${appliance}</li>`).join('')
+
+      const filteredUtensils = filteredRecipes.map(recipe => recipe.ustensils.map(object => object)).flat()
+      const uniqueUtensils = [...new Set(filteredUtensils)]
+      dropdownMenuOptionsUtensils.innerHTML = uniqueUtensils.map(utensil => `<li class="dropdown-menu__option utensils">${utensil}</li>`).join('')
     }
-    console.log(filters)
   })
 }
 
@@ -156,19 +173,6 @@ export function filterAppliances() {
       dropdownMenuOptions.innerHTML = recipes.map(recipe => `<li class="dropdown-menu__option devices">${recipe.appliance}</li>`).join('')
     }
   })
-
-   // quand on clique sur un li dropdown-menu__option devices, on affiche les recettes correspondantes
-  /* dropdownMenuOptions.addEventListener('click', (e) => {
-    const recipesContainer = document.querySelector('.main-index__results-container')
-    const filteredRecipes = recipes.filter((recipe) => {
-      return recipe.appliance === e.target.innerText
-    })
-    recipesContainer.innerHTML = ''
-    filteredRecipes.forEach((recipe) => {
-      const card = createCard(recipe)
-      recipesContainer.appendChild(card)
-    })
-  }) */
 }
 
 export function filterUstensils() {
@@ -199,4 +203,3 @@ export function filterUstensils() {
     }
   })
 }
-

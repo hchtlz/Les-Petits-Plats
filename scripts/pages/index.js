@@ -18,56 +18,37 @@ recipes.forEach(recipe => {
   mainIndexResults.appendChild(card)
 })
 
-// Sorting
+// Sorting of the ingredients, appliances and ustensils
 filterIngredients()
-dropdownMenuIngredients.addEventListener('click', () => {
-  dropdownMenuIngredients.classList.toggle('is-active')
-  dropdownMenuIngredients.querySelector('.dropdown-menu__options').classList.toggle('is-active')
-  const dropdownMenuOptions = dropdownMenuIngredients.querySelector('.dropdown-menu__options')
-  
-  if (dropdownMenuOptions.classList.contains('is-active')) {
-    const input = dropdownMenuIngredients.querySelector('.dropdown-menu__sort-input')
-    input.value = ''
-
-  } else {
-    const input = dropdownMenuIngredients.querySelector('.dropdown-menu__sort-input')
-    input.value = 'Ingrédients'
-  }
-})
-
 filterAppliances();
-dropdownMenuAppliances.addEventListener('click', () => {
-  dropdownMenuAppliances.classList.toggle('is-active')
-  dropdownMenuAppliances.querySelector('.dropdown-menu__options').classList.toggle('is-active')
-  const dropdownMenuOptions = dropdownMenuAppliances.querySelector('.dropdown-menu__options')
-  
-  if (dropdownMenuOptions.classList.contains('is-active')) {
-    const input = dropdownMenuAppliances.querySelector('.dropdown-menu__sort-input')
-    input.value = ''
-  
-  } else {
-    const input = dropdownMenuAppliances.querySelector('.dropdown-menu__sort-input')
-    input.value = 'Appareils'
-  }
-})
-
 filterUstensils();
-dropdownMenuUstensils.addEventListener('click', () => {
-  dropdownMenuUstensils.classList.toggle('is-active')
-  dropdownMenuUstensils.querySelector('.dropdown-menu__options').classList.toggle('is-active')
-  const dropdownMenuOptions = dropdownMenuUstensils.querySelector('.dropdown-menu__options')
-  
-  if (dropdownMenuOptions.classList.contains('is-active')) {
-    const input = dropdownMenuUstensils.querySelector('.dropdown-menu__sort-input')
-    input.value = ''
-  
-  } else {
-    const input = dropdownMenuUstensils.querySelector('.dropdown-menu__sort-input')
-    input.value = 'Ustensiles'
-  }
-})
 
-// search tags
+/**
+ * Toggle dropdown menu and display delete the value of the input
+**/
+function toggleDropdown(dropdownMenu, label) {
+  dropdownMenu.addEventListener('click', () => {
+    dropdownMenu.classList.toggle('is-active')
+    dropdownMenu.querySelector('.dropdown-menu__options').classList.toggle('is-active')
+    const dropdownMenuOptions = dropdownMenu.querySelector('.dropdown-menu__options')
+    
+    if (dropdownMenuOptions.classList.contains('is-active')) {
+      const input = dropdownMenu.querySelector('.dropdown-menu__sort-input')
+      input.value = ''
+    } else {
+      const input = dropdownMenu.querySelector('.dropdown-menu__sort-input')
+      input.value = label
+    }
+  })
+}
+
+toggleDropdown(dropdownMenuIngredients, 'Ingrédients')
+toggleDropdown(dropdownMenuAppliances, 'Appareils')
+toggleDropdown(dropdownMenuUstensils, 'Ustensiles')
+
+/**
+ * Search tag in dropdown menu
+**/
 function searchTag (e) {
   const input = e.target
   const filter = input.value.toUpperCase()
@@ -82,6 +63,7 @@ function searchTag (e) {
   })
 }
 
+// search tag
 dropdownMenu.forEach(menu => {
   menu.addEventListener('keyup', (e) => {
     if (e.target.classList.contains('dropdown-menu__sort-input')) {
