@@ -114,28 +114,6 @@ dropdownMenu.forEach(menu => {
       }
       searchResults.appendChild(tag)
     }
-
-    // afficher qu'un seul tag par catégorie
-    const tags = document.querySelectorAll('.tag')
-    tags.forEach(tag => {
-      if (tag.classList.contains('ingredients')) {
-        const ingredientsTags = document.querySelectorAll('.tag.ingredients')
-        if (ingredientsTags.length > 1) {
-          ingredientsTags[0].remove()
-          filterIngredients()
-        }
-      } else if (tag.classList.contains('devices')) {
-        const devicesTags = document.querySelectorAll('.tag.devices')
-        if (devicesTags.length > 1) {
-          devicesTags[0].remove()
-        }
-      } else if (tag.classList.contains('utensils')) {
-        const utensilsTags = document.querySelectorAll('.tag.utensils')
-        if (utensilsTags.length > 1) {
-          utensilsTags[0].remove()
-        }
-      }
-    })
   })
 })
 

@@ -43,23 +43,26 @@ export function sorting(){
     }
   })
 
-  // REPARER LE PROBLEME DE CETTE FONCTION ICI 🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽
+  var filters = [];
 
   // Dropdowns
   dropdownMenu.forEach(menu => {
     menu.addEventListener('click', (e) => {
-      // quand un li est selectionné, afficher seulement les recettes correspondantes dans les autres dropdowns
       if (e.target.classList.contains('dropdown-menu__option')) {
+        filters.push(e.target.textContent)
         recipesContainer.innerHTML = ''
         const filteredRecipes = recipes.filter((recipe) => {
-          return recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(e.target.textContent.toLowerCase()) || recipe.appliance.toLowerCase().includes(e.target.textContent.toLowerCase()) || recipe.ustensils.map(object => object).join('').toLowerCase().includes(e.target.textContent.toLowerCase())
+          return filters.every(filter => {
+            return recipe.ingredients.map(object => object.ingredient).includes(filter) || recipe.appliance.includes(filter) || recipe.ustensils.map(object => object).includes(filter)            
+          })
         })
         filteredRecipes.forEach((recipe) => {
           const card = createCard(recipe)
           recipesContainer.appendChild(card)
         })
-        const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
+
         // afficher mais pas de doublons dans les dropdowns
+        const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
         const uniqueIngredients = [...new Set(filteredIngredients)]
         dropdownMenuOptionsIngredients.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
         const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance)
@@ -69,8 +72,19 @@ export function sorting(){
         const uniqueUtensils = [...new Set(filteredUtensils)]
         dropdownMenuOptionsUtensils.innerHTML = uniqueUtensils.map(utensil => `<li class="dropdown-menu__option utensils">${utensil}</li>`).join('')
       }
-      // TODO : Affiner la recherche en additionnant les filtres (ex: si je filtre sur l'ingrédient "oeuf", et que je filtre ensuite sur l'appareil "mixeur", je veux que les recettes qui contiennent à la fois "oeuf" et "mixeur" soient affichées 😈)
     })
+  })
+  
+  // Quand on clique sur la croix, on supprime le filtre
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('tag__cross')) {
+      var tagText = e.target.previousSibling.previousSibling.textContent
+      const index = filters.indexOf(tagText)
+      if (index > -1) {
+        filters.splice(index, 1)
+      }
+    }
+    console.log(filters)
   })
 }
 
@@ -81,9 +95,9 @@ export function filterIngredients() {
   const searchBar = document.querySelector('.main-index__input')
   let searchBarValue = searchBar.value
 
-  // par default, afficher tous les ingredients
-  const allIngredients = recipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
-  const uniqueIngredients = [...new Set(allIngredients)]
+  // par default, afficher tous les ingredients et si plusiers fois le meme ingredient, ne pas le repeter
+  const ingredients = recipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
+  const uniqueIngredients = [...new Set(ingredients)]
   dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
 
   searchBar.addEventListener('keyup', (e) => {
@@ -110,9 +124,8 @@ export function filterAppliances() {
   const searchBar = document.querySelector('.main-index__input')
   let searchBarValue = searchBar.value
 
-  // par default, afficher tous les appareils
-  const allAppliances = recipes.map(recipe => recipe.appliance)
-  const uniqueAppliances = [...new Set(allAppliances)]
+  const appliances = recipes.map(recipe => recipe.appliance)
+  const uniqueAppliances = [...new Set(appliances)]
   dropdownMenuOptions.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option devices">${appliance}</li>`).join('')
   
   searchBar.addEventListener('keyup', (e) => {
