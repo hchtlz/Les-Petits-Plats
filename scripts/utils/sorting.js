@@ -118,6 +118,10 @@ export function sorting(){
   })
 }
 
+
+/**
+ * Filter ingredients
+**/
 export function filterIngredients() {
   const recipes = getRecipes()
   const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredients')
@@ -147,6 +151,9 @@ export function filterIngredients() {
   })
 }
 
+/**
+ * Filter appliances
+ **/
 export function filterAppliances() {
   const recipes = getRecipes()
   const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices')
@@ -175,6 +182,9 @@ export function filterAppliances() {
   })
 }
 
+/**
+ * Filter ustensils
+ **/
 export function filterUstensils() {
   const recipes = getRecipes()
   const dropdownMenuUstensils = document.querySelector('.dropdown-menu--utensils')
