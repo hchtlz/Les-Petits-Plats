@@ -82,6 +82,7 @@
     scrollbar-width: none;
     top: 7.5rem;
     transition: height 450ms ease-out;
+    width: 100%;
     z-index: 1;
 
     &::-webkit-scrollbar {
@@ -109,6 +110,8 @@
         display: grid;
       }
     }
+
+    @media screen and (max-width: $mq-small-tablet) { grid-template-columns: repeat(2, 1fr);};
   }
 
   &__option {

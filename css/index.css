@@ -192,6 +192,7 @@ main {
   scrollbar-width: none;
   top: 7.5rem;
   transition: height 450ms ease-out;
+  width: 100%;
   z-index: 1;
 }
 .dropdown-menu__options::-webkit-scrollbar {
@@ -217,6 +218,11 @@ main {
 }
 .dropdown-menu__options--utensils.is-active {
   display: grid;
+}
+@media screen and (max-width: 600px) {
+  .dropdown-menu__options {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 .dropdown-menu__option {
   align-items: center;
