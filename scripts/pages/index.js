@@ -74,8 +74,8 @@ for (let i = 0; i < dropdownMenu.length; i++) {
 }
 
 // display tags
-dropdownMenu.forEach(menu => {
-  menu.addEventListener('click', (e) => {
+for (let i = 0; i < dropdownMenu.length; i++) {
+  dropdownMenu[i].addEventListener('click', (e) => {
     if (e.target.classList.contains('dropdown-menu__option')) {
       const searchResults = document.querySelector('.main-index__tags-container')
       const tag = document.createElement('div')
@@ -86,7 +86,7 @@ dropdownMenu.forEach(menu => {
       `
       tag.querySelector('.tag__cross').addEventListener('click', () => {
         tag.remove()
-      })
+      })  
 
       if (e.target.classList.contains('ingredients')) {
         tag.classList.add('ingredients')
@@ -98,7 +98,7 @@ dropdownMenu.forEach(menu => {
       searchResults.appendChild(tag)
     }
   })
-})
+}
 
 // display recipes
 sorting();
