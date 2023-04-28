@@ -161,7 +161,7 @@ export function filterAppliances() {
   const searchBar = document.querySelector('.main-index__input')
   let searchBarValue = searchBar.value
 
-  const appliances = recipes.map(recipe => recipe.appliance)
+  const appliances = recipes.map(recipe => recipe.appliance.toLowerCase())
   const uniqueAppliances = [...new Set(appliances)]
   dropdownMenuOptions.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option devices">${appliance}</li>`).join('')
   
@@ -193,7 +193,7 @@ export function filterUstensils() {
   let searchBarValue = searchBar.value
 
   // par default, afficher tous les ustensiles
-  const allUstensils = recipes.map(recipe => recipe.ustensils)
+  const allUstensils = recipes.map(recipe => recipe.ustensils.map(object => object.toLocaleLowerCase())).flat()
   const uniqueUstensils = [...new Set(allUstensils.flat())]
   dropdownMenuOptions.innerHTML = uniqueUstensils.map(ustensil => `<li class="dropdown-menu__option utensils">${ustensil}</li>`).join('')
 
