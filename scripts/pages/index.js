@@ -13,10 +13,11 @@ const dropdownMenuUstensils = document.querySelector('.dropdown-menu--utensils')
 const mainIndexResults = document.querySelector('.main-index__results-container')
 
 // Construction of the card
-recipes.forEach(recipe => {
-  const card = createCard(recipe)
+for (let i = 0; i < recipes.length; i++) {
+  const card = createCard(recipes[i])
   mainIndexResults.appendChild(card)
-})
+} 
+console.log(recipes)
 
 // Sorting of the ingredients, appliances and ustensils
 filterIngredients()
@@ -53,24 +54,24 @@ function searchTag (e) {
   const input = e.target
   const filter = input.value.toUpperCase()
   const options = input.parentNode.querySelectorAll('.dropdown-menu__option')
-  options.forEach(option => {
-    const text = option.textContent || option.innerText
+  for (let i = 0; i < options.length; i++) {
+    const text = options[i].textContent || options[i].innerText
     if (text.toUpperCase().indexOf(filter) > -1) {
-      option.style.display = ''
+      options[i].style.display = ''
     } else {
-      option.style.display = 'none'
+      options[i].style.display = 'none'
     }
-  })
+  }
 }
 
 // search tag
-dropdownMenu.forEach(menu => {
-  menu.addEventListener('keyup', (e) => {
+for (let i = 0; i < dropdownMenu.length; i++) {
+  dropdownMenu[i].addEventListener('keyup', (e) => {
     if (e.target.classList.contains('dropdown-menu__sort-input')) {
       searchTag(e)
     }
   })
-})
+}
 
 // display tags
 dropdownMenu.forEach(menu => {
