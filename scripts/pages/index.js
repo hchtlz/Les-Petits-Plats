@@ -17,7 +17,6 @@ for (let i = 0; i < recipes.length; i++) {
   const card = createCard(recipes[i])
   mainIndexResults.appendChild(card)
 } 
-console.log(recipes)
 
 // Sorting of the ingredients, appliances and ustensils
 filterIngredients()
