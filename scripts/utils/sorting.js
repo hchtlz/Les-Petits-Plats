@@ -19,17 +19,37 @@ export function sorting(){
   // Search bar
   searchBar.addEventListener('keyup', (e) => {
     searchBarValue = e.target.value
-    const filteredRecipes = recipes.filter((recipe) => {
-      return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
-    })
+    
+    const filteredRecipes = [];
+
+    for (let i = 0; i < recipes.length; i++) {
+      const recipe = recipes[i];
+
+      if (recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase())) {
+        filteredRecipes.push(recipe);
+      } else {
+        let found = false;
+        for (let j = 0; j < recipe.ingredients.length; j++) {
+          const object = recipe.ingredients[j];
+          if (object.ingredient && object.ingredient.toLowerCase().includes(searchBarValue.toLowerCase())) {
+            found = true;
+            break;
+          }
+        }
+        if (found) {
+          filteredRecipes.push(recipe);
+        }
+      }
+    }
 
     if (searchBarValue.length > 2 || searchBarValue.length < 3) {
       let a = searchBarValue.length > 2 ? filteredRecipes : recipes;
-      recipesContainer.innerHTML = ''
-      a.forEach((recipe) => {
-        const card = createCard(recipe)
-        recipesContainer.appendChild(card)
-      })
+      recipesContainer.innerHTML = '';
+      for (let i = 0; i < a.length; i++) {
+        const recipe = a[i];
+        const card = createCard(recipe);
+        recipesContainer.appendChild(card);
+      }
     }
     if (searchBarValue.length > 2 && filteredRecipes.length === 0) {
       recipesContainer.innerHTML = ''
@@ -47,39 +67,104 @@ export function sorting(){
   var filters = [];
 
   // Dropdowns
-  dropdownMenu.forEach(menu => {
+
+  for (let menu of dropdownMenu) {
     menu.addEventListener('click', (e) => {
-      
       if (e.target.classList.contains('dropdown-menu__option')) {
-        filters.push(e.target.textContent)
-        recipesContainer.innerHTML = ''
-        const filteredRecipes = recipes.filter((recipe) => {
-          return filters.every(filter => {
-            return recipe.ingredients.map(object => object.ingredient).includes(filter) || recipe.appliance.includes(filter) || recipe.ustensils.map(object => object).includes(filter)            
-          })
-        })
-
+        filters = [...filters, e.target.textContent];
+        recipesContainer.innerHTML = '';
+        const filteredRecipes = [];
+  
+        for (let i = 0; i < recipes.length; i++) {
+          let recipe = recipes[i];
+          let isFiltered = true;
+  
+          for (let j = 0; j < filters.length; j++) {
+            let filter = filters[j];
+            let ingredientExists = false;
+            let utensilExists = false;
+  
+            for (let k = 0; k < recipe.ingredients.length; k++) {
+              let ingredient = recipe.ingredients[k].ingredient;
+              if (ingredient === filter) {
+                ingredientExists = true;
+                break;
+              }
+            }
+  
+            if (!ingredientExists && !recipe.appliance.includes(filter)) {
+              for (let k = 0; k < recipe.ustensils.length; k++) {
+                let utensil = recipe.ustensils[k];
+                if (utensil === filter) {
+                  utensilExists = true;
+                  break;
+                }
+              }
+            }
+  
+            if (!ingredientExists && !recipe.appliance.includes(filter) && !utensilExists) {
+              isFiltered = false;
+              break;
+            }
+          }
+  
+          if (isFiltered) {
+            filteredRecipes.push(recipe);
+          }
+        }
+  
         // afficher les recettes filtrées
-        filteredRecipes.forEach((recipe) => {
-          const card = createCard(recipe)
-          recipesContainer.appendChild(card)
-        })
-
+        for (let i = 0; i < filteredRecipes.length; i++) {
+          let recipe = filteredRecipes[i];
+          const card = createCard(recipe);
+          recipesContainer.appendChild(card);
+        }
+  
         // afficher mais pas de doublons dans les dropdowns
-        const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
-        const uniqueIngredients = [...new Set(filteredIngredients)]
-        dropdownMenuOptionsIngredients.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
-
-        const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance)
-        const uniqueAppliances = [...new Set(filteredAppliances)]
-        dropdownMenuOptionsAppliances.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option devices">${appliance}</li>`).join('')
-
-        const filteredUtensils = filteredRecipes.map(recipe => recipe.ustensils.map(object => object)).flat()
-        const uniqueUtensils = [...new Set(filteredUtensils)]
-        dropdownMenuOptionsUtensils.innerHTML = uniqueUtensils.map(utensil => `<li class="dropdown-menu__option utensils">${utensil}</li>`).join('')
+        const filteredIngredients = [];
+        const filteredAppliances = [];
+        const filteredUtensils = [];
+  
+        for (let i = 0; i < filteredRecipes.length; i++) {
+          let recipe = filteredRecipes[i];
+  
+          for (let j = 0; j < recipe.ingredients.length; j++) {
+            let ingredient = recipe.ingredients[j].ingredient;
+            if (!filteredIngredients.includes(ingredient)) {
+              filteredIngredients.push(ingredient);
+            }
+          }
+  
+          let appliance = recipe.appliance;
+          if (!filteredAppliances.includes(appliance)) {
+            filteredAppliances.push(appliance);
+          }
+  
+          for (let j = 0; j < recipe.ustensils.length; j++) {
+            let utensil = recipe.ustensils[j];
+            if (!filteredUtensils.includes(utensil)) {
+              filteredUtensils.push(utensil);
+            }
+          }
+        }
+  
+        dropdownMenuOptionsIngredients.innerHTML = '';
+        for (let ingredient of filteredIngredients) {
+          dropdownMenuOptionsIngredients.innerHTML += `<li class="dropdown-menu__option ingredients">${ingredient}</li>`;
+        }
+  
+        dropdownMenuOptionsAppliances.innerHTML = '';
+        for (let appliance of filteredAppliances) {
+          dropdownMenuOptionsAppliances.innerHTML += `<li class="dropdown-menu__option devices">${appliance}</li>`;
+        }
+  
+        dropdownMenuOptionsUtensils.innerHTML = '';
+        for (let utensil of filteredUtensils) {
+          dropdownMenuOptionsUtensils.innerHTML += `<li class="dropdown-menu__option utensils">${utensil}</li>`;
+        }
       }
-    })
-  })
+    });
+  }
   
   // Quand on clique sur la croix, on supprime le filtre
   document.addEventListener('click', (e) => {

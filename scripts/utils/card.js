@@ -1,6 +1,6 @@
 export function createCard(recipe) {
-  const card = document.createElement('div')
-  card.classList.add('card')
+  const card = document.createElement('div');
+  card.classList.add('card');
   card.innerHTML = `
     <div class="card__image"></div>
     <div class="card__text-container">
@@ -12,16 +12,25 @@ export function createCard(recipe) {
         </div>
       </div>
       <div class="card__recipe-details">
-      <p class="card__recipe-details--description">${recipe.description}</p>
-      <ul class="card__recipe-details--ingredients-list">
-        ${recipe.ingredients.map(object => `
-        <li class="card__recipe-details--ingredient">
-        <span class="card__recipe-details--ingredient-name">${object.ingredient? object.ingredient : ''}:</span>
-        <span class="card__recipe-details--ingredient-quantity">${object.quantity? object.quantity : ''}</span>
-        <span class="card__recipe-details--ingredient-unit">${object.unit? object.unit : ''}</span>
-        </li>`).join('')}
-      </ul>
+        <p class="card__recipe-details--description">${recipe.description}</p>
+        <ul class="card__recipe-details--ingredients-list">
+  `;
+
+  for (let i = 0; i < recipe.ingredients.length; i++) {
+    const object = recipe.ingredients[i];
+    card.innerHTML += `
+          <li class="card__recipe-details--ingredient">
+            <span class="card__recipe-details--ingredient-name">${object.ingredient ? object.ingredient : ''}:</span>
+            <span class="card__recipe-details--ingredient-quantity">${object.quantity ? object.quantity : ''}</span>
+            <span class="card__recipe-details--ingredient-unit">${object.unit ? object.unit : ''}</span>
+          </li>`;
+  }
+
+  card.innerHTML += `
+        </ul>
+      </div>
     </div>
-  `
-  return card
+  `;
+
+  return card;
 }
