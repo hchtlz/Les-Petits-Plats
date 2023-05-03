@@ -235,14 +235,7 @@ export function sorting(){
       }
       const uniqueIngredients = [];
       for (let i = 0; i < filteredIngredients.length; i++) {
-        let isUnique = true;
-        for (let j = 0; j < uniqueIngredients.length; j++) {
-          if (filteredIngredients[i] === uniqueIngredients[j]) {
-            isUnique = false;
-            break;
-          }
-        }
-        if (isUnique) {
+        if (!uniqueIngredients.includes(filteredIngredients[i])) {
           uniqueIngredients.push(filteredIngredients[i]);
         }
       }
@@ -251,161 +244,100 @@ export function sorting(){
         dropdownMenuOptionsIngredients.innerHTML += `<li class="dropdown-menu__option ingredients">${uniqueIngredients[i]}</li>`;
       }
 
-      const filteredAppliances = [];
-      for (let i = 0; i < filteredRecipes.length; i++) {
-        const appliance = filteredRecipes[i].appliance;
-        if (!filteredAppliances.includes(appliance)) {
-          filteredAppliances.push(appliance);
-        }
-      }
+      const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance);
+
       const uniqueAppliances = [];
       for (let i = 0; i < filteredAppliances.length; i++) {
-        let isUnique = true;
-        for (let j = 0; j < uniqueAppliances.length; j++) {
-          if (filteredAppliances[i] === uniqueAppliances[j]) {
-            isUnique = false;
-            break;
-          }
-        }
-        if (isUnique) {
+        if (!uniqueAppliances.includes(filteredAppliances[i])) {
           uniqueAppliances.push(filteredAppliances[i]);
         }
+      }
+      dropdownMenuOptionsAppliances.innerHTML = '';
+      for (let i = 0; i < uniqueAppliances.length; i++) {
+        dropdownMenuOptionsAppliances.innerHTML += `<li class="dropdown-menu__option devices">${uniqueAppliances[i]}</li>`;
+      }
+
+      const filteredUtensils = [];
+      for (let i = 0; i < filteredRecipes.length; i++) {
+        const utensils = filteredRecipes[i].ustensils;
+        for (let j = 0; j < utensils.length; j++) {
+          filteredUtensils.push(utensils[j]);
+        }
+      }
+      const uniqueUtensils = [];
+      for (let i = 0; i < filteredUtensils.length; i++) {
+        if (!uniqueUtensils.includes(filteredUtensils[i])) {
+          uniqueUtensils.push(filteredUtensils[i]);
+        }
+      }
+      dropdownMenuOptionsUtensils.innerHTML = '';
+      for (let i = 0; i < uniqueUtensils.length; i++) {
+        dropdownMenuOptionsUtensils.innerHTML += `<li class="dropdown-menu__option utensils">${uniqueUtensils[i]}</li>`;
       }
     }
   })
 }
 
+
 /**
  * Filter ingredients
 **/
 export function filterIngredients() {
-  const recipes = getRecipes();
-  const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredients');
-  const dropdownMenuOptions = dropdownMenuIngredients.querySelector('.dropdown-menu__options--ingredients');
-  const searchBar = document.querySelector('.main-index__input');
-  let searchBarValue = searchBar.value;
+  const recipes = getRecipes()
+  const dropdownMenuIngredients = document.querySelector('.dropdown-menu--ingredients')
+  const dropdownMenuOptions = dropdownMenuIngredients.querySelector('.dropdown-menu__options--ingredients')
+  const searchBar = document.querySelector('.main-index__input')
+  let searchBarValue = searchBar.value
 
   // par default, afficher tous les ingredients et si plusiers fois le meme ingredient, ne pas le repeter
-  const ingredients = [];
-  for (let i = 0; i < recipes.length; i++) {
-    const recipe = recipes[i];
-    for (let j = 0; j < recipe.ingredients.length; j++) {
-      ingredients.push(recipe.ingredients[j].ingredient);
-    }
-  }
-  const uniqueIngredients = [];
-  for (let i = 0; i < ingredients.length; i++) {
-    const ingredient = ingredients[i];
-    let isUnique = true;
-    for (let j = 0; j < uniqueIngredients.length; j++) {
-      if (ingredient === uniqueIngredients[j]) {
-        isUnique = false;
-        break;
-      }
-    }
-    if (isUnique) {
-      uniqueIngredients.push(ingredient);
-    }
-  }
-  dropdownMenuOptions.innerHTML = '';
-  for (let i = 0; i < uniqueIngredients.length; i++) {
-    dropdownMenuOptions.innerHTML += `<li class="dropdown-menu__option ingredients">${uniqueIngredients[i]}</li>`;
-  }
+  const ingredients = recipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
+  const uniqueIngredients = [...new Set(ingredients)]
+  dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
 
   searchBar.addEventListener('keyup', (e) => {
-    searchBarValue = e.target.value;
-    const filteredRecipes = [];
-    for (let i = 0; i < recipes.length; i++) {
-      const recipe = recipes[i];
-      const ingredients = recipe.ingredients.map(object => object.ingredient).join('').toLowerCase();
-      if (recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || ingredients.includes(searchBarValue.toLowerCase())) {
-        filteredRecipes.push(recipe);
-      }
-    }
+    searchBarValue = e.target.value
+    const filteredRecipes = recipes.filter((recipe) => {
+      return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
+    })
 
     if (searchBarValue.length > 2) {
-      const filteredIngredients = [];
-      for (let i = 0; i < filteredRecipes.length; i++) {
-        const recipe = filteredRecipes[i];
-        for (let j = 0; j < recipe.ingredients.length; j++) {
-          filteredIngredients.push(recipe.ingredients[j].ingredient);
-        }
-      }
-      const uniqueIngredients = [];
-      for (let i = 0; i < filteredIngredients.length; i++) {
-        const ingredient = filteredIngredients[i];
-        if (!uniqueIngredients.includes(ingredient)) {
-          uniqueIngredients.push(ingredient);
-        }
-      }
-      dropdownMenuOptions.innerHTML = '';
-      for (let i = 0; i < uniqueIngredients.length; i++) {
-        dropdownMenuOptions.innerHTML += `<li class="dropdown-menu__option ingredients">${uniqueIngredients[i]}</li>`;
-      }
-    } else if (searchBarValue.length < 3) {
-      const ingredients = [];
-      for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i];
-        for (let j = 0; j < recipe.ingredients.length; j++) {
-          ingredients.push(`<li class="dropdown-menu__option ingredients">${recipe.ingredients[j].ingredient}</li>`);
-        }
-      }
-      dropdownMenuOptions.innerHTML = ingredients.join('');
+      const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
+      const uniqueIngredients = [...new Set(filteredIngredients)]
+      dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
     }
-  });
+    else if (searchBarValue.length < 3) {
+      dropdownMenuOptions.innerHTML = recipes.map(recipe => recipe.ingredients.map(object => `<li class="dropdown-menu__option ingredients">${object.ingredient}</li>`)).flat().join('')
+    }
+  })
 }
 
 /**
  * Filter appliances
  **/
 export function filterAppliances() {
-  const recipes = getRecipes();
-  const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices');
-  const dropdownMenuOptions = dropdownMenuAppliances.querySelector('.dropdown-menu__options--devices');
-  const searchBar = document.querySelector('.main-index__input');
-  let searchBarValue = searchBar.value;
+  const recipes = getRecipes()
+  const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices')
+  const dropdownMenuOptions = dropdownMenuAppliances.querySelector('.dropdown-menu__options--devices')
+  const searchBar = document.querySelector('.main-index__input')
+  let searchBarValue = searchBar.value
 
-  const appliances = [];
-  for (let i = 0; i < recipes.length; i++) {
-    const recipe = recipes[i];
-    const appliance = recipe.appliance.toLowerCase();
-    if (!appliances.includes(appliance)) {
-      appliances.push(appliance);
-    }
-  }
-  dropdownMenuOptions.innerHTML = '';
-  for (let i = 0; i < appliances.length; i++) {
-    const appliance = appliances[i];
-    dropdownMenuOptions.innerHTML += `<li class="dropdown-menu__option devices">${appliance}</li>`;
-  }
-
+  const appliances = recipes.map(recipe => recipe.appliance.toLowerCase())
+  const uniqueAppliances = [...new Set(appliances)]
+  dropdownMenuOptions.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option devices">${appliance}</li>`).join('')
+  
   searchBar.addEventListener('keyup', (e) => {
-    searchBarValue = e.target.value;
+    searchBarValue = e.target.value
     const filteredRecipes = recipes.filter((recipe) => {
       return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
-    });
+    })
 
     if (searchBarValue.length > 2) {
-      const filteredAppliances = [];
-      for (let i = 0; i < filteredRecipes.length; i++) {
-        const recipe = filteredRecipes[i];
-        const appliance = recipe.appliance;
-        if (!filteredAppliances.includes(appliance)) {
-          filteredAppliances.push(appliance);
-        }
-      }
-      dropdownMenuOptions.innerHTML = '';
-      for (let i = 0; i < filteredAppliances.length; i++) {
-        const appliance = filteredAppliances[i];
-        dropdownMenuOptions.innerHTML += `<li class="dropdown-menu__option devices">${appliance}</li>`;
-      }
-    } else if (searchBarValue.length < 3) {
-      dropdownMenuOptions.innerHTML = '';
-      for (let i = 0; i < recipes.length; i++) {
-        const recipe = recipes[i];
-        const appliance = recipe.appliance;
-        dropdownMenuOptions.innerHTML += `<li class="dropdown-menu__option devices">${appliance}</li>`;
-      }
+      const filteredAppliances = filteredRecipes.map(recipe => recipe.appliance)
+      const uniqueAppliances = [...new Set(filteredAppliances)]
+      dropdownMenuOptions.innerHTML = uniqueAppliances.map(appliance => `<li class="dropdown-menu__option devices">${appliance}</li>`).join('')
+    }
+    else if (searchBarValue.length < 3) {
+      dropdownMenuOptions.innerHTML = recipes.map(recipe => `<li class="dropdown-menu__option devices">${recipe.appliance}</li>`).join('')
     }
   })
 }
@@ -420,70 +352,24 @@ export function filterUstensils() {
   const searchBar = document.querySelector('.main-index__input')
   let searchBarValue = searchBar.value
 
-  const ustensils = []
-  for (let i = 0; i < recipes.length; i++) {
-    const recipe = recipes[i]
-    for (let j = 0; j < recipe.ustensils.length; j++) {
-      ustensils.push(recipe.ustensils[j])
-    }
-  }
-  dropdownMenuOptions.innerHTML = ''
-  for (let i = 0; i < ustensils.length; i++) {
-    const ustensil = ustensils[i]
-    dropdownMenuOptions.innerHTML += `<li class="dropdown-menu__option utensils">${ustensil}</li>`
-  }
+  // par default, afficher tous les ustensiles
+  const allUstensils = recipes.map(recipe => recipe.ustensils.map(object => object.toLocaleLowerCase())).flat()
+  const uniqueUstensils = [...new Set(allUstensils.flat())]
+  dropdownMenuOptions.innerHTML = uniqueUstensils.map(ustensil => `<li class="dropdown-menu__option utensils">${ustensil}</li>`).join('')
 
   searchBar.addEventListener('keyup', (e) => {
     searchBarValue = e.target.value
-    const filteredRecipes = []
-    for (let i = 0; i < recipes.length; i++) {
-      const recipe = recipes[i]
-      if (recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase())) {
-        filteredRecipes.push(recipe)
-      } else {
-        let found = false
-        for (let j = 0; j < recipe.ingredients.length; j++) {
-          const ingredient = recipe.ingredients[j].ingredient.toLowerCase()
-          if (ingredient.includes(searchBarValue.toLowerCase())) {
-            found = true
-            break
-          }
-        }
-        if (found) {
-          filteredRecipes.push(recipe)
-        }
-      }
-    }
+    const filteredRecipes = recipes.filter((recipe) => {
+      return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
+    })
 
     if (searchBarValue.length > 2) {
-      const filteredUstensils = []
-      for (let i = 0; i < filteredRecipes.length; i++) {
-        const recipe = filteredRecipes[i]
-        for (let j = 0; j < recipe.ustensils.length; j++) {
-          const ustensil = recipe.ustensils[j]
-          let alreadyExists = false
-          for (let k = 0; k < filteredUstensils.length; k++) {
-            if (filteredUstensils[k] === ustensil) {
-              alreadyExists = true
-              break
-            }
-          }
-          if (!alreadyExists) {
-            filteredUstensils.push(ustensil)
-          }
-        }
-      }
-      dropdownMenuOptions.innerHTML = ''
-      for (let i = 0; i < filteredUstensils.length; i++) {
-        const ustensil = filteredUstensils[i]
-        dropdownMenuOptions.innerHTML += `<li class="dropdown-menu__option utensils">${ustensil}</li>`
-      }
-    } else if (searchBarValue.length < 3) {
-      dropdownMenuOptions.innerHTML = ''
-      for (let i = 0; i < ustensils.length; i++) {
-        const ustensil = ustensils[i]
-        dropdownMenuOptions.innerHTML += `<li class="dropdown-menu__option utensils">${ustensil}</li>`
-      }
+      const filteredUstensils = filteredRecipes.map(recipe => recipe.ustensils)
+      const uniqueUstensils = [...new Set(filteredUstensils.flat())]
+      dropdownMenuOptions.innerHTML = uniqueUstensils.map(ustensil => `<li class="dropdown-menu__option utensils">${ustensil}</li>`).join('')
+    }
+    else if (searchBarValue.length < 3) {
+      dropdownMenuOptions.innerHTML = recipes.map(recipe => recipe.ustensils.map(ustensil => `<li class="dropdown-menu__option utensils">${ustensil}</li>`)).flat().join('')
     }
   })
 }
