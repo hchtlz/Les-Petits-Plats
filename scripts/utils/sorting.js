@@ -434,24 +434,28 @@ export function filterIngredients() {
   })
 }
 
+
 /**
  * Filter appliances
  **/
 export function filterAppliances() {
-  const recipes = getRecipes()
-  const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices')
-  const dropdownMenuOptions = dropdownMenuAppliances.querySelector('.dropdown-menu__options--devices')
-  const searchBar = document.querySelector('.main-index__input')
-  let searchBarValue = searchBar.value
+  const recipes = getRecipes(); // Get the recipes
+  const dropdownMenuAppliances = document.querySelector('.dropdown-menu--devices'); // Get the dropdown menu element for appliances
+  const dropdownMenuOptions = dropdownMenuAppliances.querySelector('.dropdown-menu__options--devices'); // Get the options container within the dropdown menu
+  const searchBar = document.querySelector('.main-index__input'); // Get the search bar element
+  let searchBarValue = searchBar.value; // Get the initial value of the search bar
 
-  const appliances = []
+  // Extract all appliances from the recipes and create an array of unique appliances
+  const appliances = [];
   for (let i = 0; i < recipes.length; i++) {
     const recipe = recipes[i];
     const appliance = recipe.appliance.toLowerCase();
     appliances.push(appliance);
   }
-  const uniqueAppliances = [...new Set(appliances)]
+  const uniqueAppliances = [...new Set(appliances)]; // Remove duplicates from the appliances array
   dropdownMenuOptions.innerHTML = '';
+
+  // Generate dropdown menu options for each unique appliance
   for (let i = 0; i < uniqueAppliances.length; i++) {
     const appliance = uniqueAppliances[i];
     const optionElement = document.createElement('li');
@@ -460,13 +464,14 @@ export function filterAppliances() {
     dropdownMenuOptions.appendChild(optionElement);
   }
   
+  // Event listener for the search bar keyup event
   searchBar.addEventListener('keyup', (e) => {
-    searchBarValue = e.target.value
+    searchBarValue = e.target.value;
     
-    // Constante qui va contenir les recettes filtrées
-    const filteredRecipes = [];
+    const filteredRecipes = []; // Store filtered recipes
     const lowerCaseSearchBarValue = searchBarValue.toLowerCase();
 
+    // Filter recipes based on search bar value
     for (let i = 0; i < recipes.length; i++) {
       const recipe = recipes[i];
       const lowerCaseName = recipe.name.toLowerCase();
@@ -495,15 +500,18 @@ export function filterAppliances() {
       }
     }
 
+    // Update dropdown menu options based on search bar value
     if (searchBarValue.length > 2) {
-      const filteredAppliances = []
+      const filteredAppliances = [];
       for (let i = 0; i < filteredRecipes.length; i++) {
         const recipe = filteredRecipes[i];
         const appliance = recipe.appliance.toLowerCase();
         filteredAppliances.push(appliance);
       }
-      const uniqueAppliances = [...new Set(filteredAppliances)]
+      const uniqueAppliances = [...new Set(filteredAppliances)];
       dropdownMenuOptions.innerHTML = '';
+
+      // Generate dropdown menu options for each unique appliance in the filtered recipes
       for (let i = 0; i < uniqueAppliances.length; i++) {
         const appliance = uniqueAppliances[i];
         const optionElement = document.createElement('li');
@@ -514,6 +522,8 @@ export function filterAppliances() {
     }
     else if (searchBarValue.length < 3) {
       dropdownMenuOptions.innerHTML = '';
+
+      // Generate dropdown menu options for each unique appliance
       for (let i = 0; i < uniqueAppliances.length; i++) {
         const appliance = uniqueAppliances[i];
         const optionElement = document.createElement('li');
@@ -529,14 +539,15 @@ export function filterAppliances() {
  * Filter ustensils
  **/
 export function filterUstensils() {
-  const recipes = getRecipes()
-  const dropdownMenuUstensils = document.querySelector('.dropdown-menu--utensils')
-  const dropdownMenuOptions = dropdownMenuUstensils.querySelector('.dropdown-menu__options--utensils')
-  const searchBar = document.querySelector('.main-index__input')
-  let searchBarValue = searchBar.value
+  const recipes = getRecipes(); // Get the recipes
+  const dropdownMenuUstensils = document.querySelector('.dropdown-menu--utensils'); // Get the dropdown menu element for utensils
+  const dropdownMenuOptions = dropdownMenuUstensils.querySelector('.dropdown-menu__options--utensils'); // Get the options container within the dropdown menu
+  const searchBar = document.querySelector('.main-index__input'); // Get the search bar element
+  let searchBarValue = searchBar.value; // Get the initial value of the search bar
 
-  // par default, afficher tous les ustensiles
-  const allUstensils = [];
+  const allUstensils = []; // Store all utensils from the recipes
+
+  // Extract all utensils from the recipes and create an array of unique utensils
   for (let i = 0; i < recipes.length; i++) {
     const recipe = recipes[i];
     const ustensils = recipe.ustensils;
@@ -545,8 +556,10 @@ export function filterUstensils() {
       allUstensils.push(ustensil.toLowerCase());
     }
   }
-  const uniqueUstensils = [...new Set(allUstensils.flat())]
+  const uniqueUstensils = [...new Set(allUstensils.flat())]; // Remove duplicates from the utensils array
   dropdownMenuOptions.innerHTML = '';
+
+  // Generate dropdown menu options for each unique utensil
   for (let i = 0; i < uniqueUstensils.length; i++) {
     const ustensil = uniqueUstensils[i];
     const optionElement = document.createElement('li');
@@ -555,13 +568,14 @@ export function filterUstensils() {
     dropdownMenuOptions.appendChild(optionElement);
   }
 
+  // Event listener for the search bar keyup event
   searchBar.addEventListener('keyup', (e) => {
-    searchBarValue = e.target.value
+    searchBarValue = e.target.value;
     
-    // Constante qui va contenir les recettes filtrées
-    const filteredRecipes = [];
+    const filteredRecipes = []; // Store filtered recipes
     const lowerCaseSearchBarValue = searchBarValue.toLowerCase();
 
+    // Filter recipes based on search bar value
     for (let i = 0; i < recipes.length; i++) {
       const recipe = recipes[i];
       const lowerCaseName = recipe.name.toLowerCase();
@@ -590,16 +604,20 @@ export function filterUstensils() {
       }
     }
 
+    // Update dropdown menu options based on search bar value
     if (searchBarValue.length > 2) {
       const filteredUstensils = [];
+
       for (let i = 0; i < filteredRecipes.length; i++) {
         const recipe = filteredRecipes[i];
         const ustensils = recipe.ustensils;
         filteredUstensils.push(ustensils);
       }
 
-      const uniqueUstensils = [...new Set(filteredUstensils.flat())]
+      const uniqueUstensils = [...new Set(filteredUstensils.flat())];
       dropdownMenuOptions.innerHTML = '';
+
+      // Generate dropdown menu options for each unique utensil in the filtered recipes
       for (let i = 0; i < uniqueUstensils.length; i++) {
         const ustensil = uniqueUstensils[i];
         const optionElement = document.createElement('li');
@@ -610,6 +628,8 @@ export function filterUstensils() {
     }
     else if (searchBarValue.length < 3) {
       dropdownMenuOptions.innerHTML = '';
+      
+      // Generate dropdown menu options for each unique utensil
       for (let i = 0; i < uniqueUstensils.length; i++) {
         const ustensil = uniqueUstensils[i];
         const optionElement = document.createElement('li');
