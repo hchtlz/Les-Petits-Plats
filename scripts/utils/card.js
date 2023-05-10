@@ -1,4 +1,5 @@
 export function createCard(recipe) {
+  // Create a new card element
   const card = document.createElement('div');
   card.classList.add('card');
   card.innerHTML = `
@@ -19,7 +20,7 @@ export function createCard(recipe) {
     </div>
   `;
 
-  /* insert loop for in the ul card__recipe-details--ingredients-list */
+  // Insert the ingredients into the card
   const ingredientsList = card.querySelector('.card__recipe-details--ingredients-list');
   
   for (const ingredient of recipe.ingredients) {
