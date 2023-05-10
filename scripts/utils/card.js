@@ -14,23 +14,24 @@ export function createCard(recipe) {
       <div class="card__recipe-details">
         <p class="card__recipe-details--description">${recipe.description}</p>
         <ul class="card__recipe-details--ingredients-list">
-  `;
-
-  for (let i = 0; i < recipe.ingredients.length; i++) {
-    const object = recipe.ingredients[i];
-    card.innerHTML += `
-          <li class="card__recipe-details--ingredient">
-            <span class="card__recipe-details--ingredient-name">${object.ingredient ? object.ingredient : ''}:</span>
-            <span class="card__recipe-details--ingredient-quantity">${object.quantity ? object.quantity : ''}</span>
-            <span class="card__recipe-details--ingredient-unit">${object.unit ? object.unit : ''}</span>
-          </li>`;
-  }
-
-  card.innerHTML += `
         </ul>
       </div>
     </div>
   `;
 
+  /* insert loop for in the ul card__recipe-details--ingredients-list */
+  const ingredientsList = card.querySelector('.card__recipe-details--ingredients-list');
+  
+  for (const ingredient of recipe.ingredients) {
+    const ingredientElement = document.createElement('li');
+    ingredientElement.classList.add('card__recipe-details--ingredient');
+    ingredientElement.innerHTML = `
+      <span class="card__recipe-details--ingredient-name">${ingredient.ingredient ? ingredient.ingredient : ''}:</span>
+      <span class="card__recipe-details--ingredient-quantity">${ingredient.quantity ? ingredient.quantity : ''}</span>
+      <span class="card__recipe-details--ingredient-unit">${ingredient.unit ? ingredient.unit : ''}</span>
+    `;
+    ingredientsList.appendChild(ingredientElement);
+  }
+  
   return card;
 }

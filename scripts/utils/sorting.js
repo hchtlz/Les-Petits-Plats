@@ -21,12 +21,12 @@ export function sorting(){
     searchBarValue = e.target.value
     
     const filteredRecipes = [];
-
+    
     for (let i = 0; i < recipes.length; i++) {
       const recipe = recipes[i];
 
       if (recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase())) {
-        filteredRecipes.push(recipe);
+        filteredRecipes[filteredRecipes.length] = recipe;
       } else {
         let found = false;
         for (let j = 0; j < recipe.ingredients.length; j++) {
@@ -37,7 +37,7 @@ export function sorting(){
           }
         }
         if (found) {
-          filteredRecipes.push(recipe);
+          filteredRecipes[filteredRecipes.length] = recipe;
         }
       }
     }
@@ -73,7 +73,7 @@ export function sorting(){
         filters = [...filters, e.target.textContent];
         recipesContainer.innerHTML = '';
         const filteredRecipes = [];
-  
+
         for (let i = 0; i < recipes.length; i++) {
           let recipe = recipes[i];
           let isFiltered = true;
@@ -84,7 +84,7 @@ export function sorting(){
             let utensilExists = false;
   
             for (let k = 0; k < recipe.ingredients.length; k++) {
-              let ingredient = recipe.ingredients[k].ingredient;
+              let ingredient = recipe.ingredients[k].ingredient.toLowerCase();
               if (ingredient === filter) {
                 ingredientExists = true;
                 break;
@@ -93,7 +93,7 @@ export function sorting(){
   
             if (!ingredientExists && !recipe.appliance.includes(filter)) {
               for (let k = 0; k < recipe.ustensils.length; k++) {
-                let utensil = recipe.ustensils[k];
+                let utensil = recipe.ustensils[k].toLowerCase();
                 if (utensil === filter) {
                   utensilExists = true;
                   break;
@@ -123,7 +123,7 @@ export function sorting(){
         const filteredIngredients = [];
         const filteredAppliances = [];
         const filteredUtensils = [];
-  
+
         for (let i = 0; i < filteredRecipes.length; i++) {
           let recipe = filteredRecipes[i];
   
@@ -290,7 +290,7 @@ export function filterIngredients() {
   let searchBarValue = searchBar.value
 
   // par default, afficher tous les ingredients et si plusiers fois le meme ingredient, ne pas le repeter
-  const ingredients = recipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
+  const ingredients = recipes.map(recipe => recipe.ingredients.map(object => object.ingredient.toLowerCase())).flat()
   const uniqueIngredients = [...new Set(ingredients)]
   dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
 
@@ -299,14 +299,14 @@ export function filterIngredients() {
     const filteredRecipes = recipes.filter((recipe) => {
       return recipe.name.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.description.toLowerCase().includes(searchBarValue.toLowerCase()) || recipe.ingredients.map(object => object.ingredient).join('').toLowerCase().includes(searchBarValue.toLowerCase())
     })
-
+    console.log(filteredRecipes)
     if (searchBarValue.length > 2) {
-      const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient)).flat()
+      const filteredIngredients = filteredRecipes.map(recipe => recipe.ingredients.map(object => object.ingredient.toLowerCase())).flat()
       const uniqueIngredients = [...new Set(filteredIngredients)]
       dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
     }
     else if (searchBarValue.length < 3) {
-      dropdownMenuOptions.innerHTML = recipes.map(recipe => recipe.ingredients.map(object => `<li class="dropdown-menu__option ingredients">${object.ingredient}</li>`)).flat().join('')
+      dropdownMenuOptions.innerHTML = uniqueIngredients.map(ingredient => `<li class="dropdown-menu__option ingredients">${ingredient}</li>`).join('')
     }
   })
 }
