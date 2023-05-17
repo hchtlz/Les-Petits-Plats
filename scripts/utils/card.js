@@ -1,7 +1,7 @@
 export function createCard(recipe) {
-  const card = document.createElement('div')
-  card.classList.add('card')
-  card.innerHTML = `
+	const card = document.createElement('div')
+	card.classList.add('card')
+	card.innerHTML = `
     <div class="card__image"></div>
     <div class="card__text-container">
       <div class="card__header">
@@ -23,5 +23,5 @@ export function createCard(recipe) {
       </ul>
     </div>
   `
-  return card
+	return card
 }
