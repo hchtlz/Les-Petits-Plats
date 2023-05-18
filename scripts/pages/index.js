@@ -1,9 +1,9 @@
 import { getRecipes } from '../utils/model.js'
-import { sorting } from '../utils/sorting.js'
+import { render } from '../utils/render.js'
 import { createCard } from '../utils/card.js'
-import { filterIngredients } from '../utils/sorting.js'
-import { filterAppliances } from '../utils/sorting.js'
-import { filterUstensils } from '../utils/sorting.js'
+import { filterIngredients } from '../utils/render.js'
+import { filterAppliances } from '../utils/render.js'
+import { filterUstensils } from '../utils/render.js'
 
 const recipes = getRecipes()
 const dropdownMenu = document.querySelectorAll('.dropdown-menu')
@@ -100,4 +100,4 @@ dropdownMenu.forEach(menu => {
 })
 
 // display recipes
-sorting()
+render()
