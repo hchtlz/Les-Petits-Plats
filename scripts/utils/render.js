@@ -1,7 +1,7 @@
 import { getRecipes } from './model.js'
 import { createCard } from './card.js'
 
-export function sorting(){
+export function render(){
 
 	// Variables and constants
 	const recipes = getRecipes()
